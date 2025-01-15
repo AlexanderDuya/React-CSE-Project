@@ -1,16 +1,17 @@
 import '../layoutt/Navbar.scss';
+import { NavLink} from 'react-router-dom';
 
 function Navbar(){
     return(
         <nav>
         <div className='navItem'>
-          <a to="/">View Classes</a>
+          <NavLink to="/">Home</NavLink>
         </div>
         <div className='navItem'>
-          <a to="/">Waiting List</a>
+          <NavLink to="/Classes">Classes</NavLink>
         </div>
         <div className='navItem'>
-          <a to="/">Profile</a>
+          <NavLink to="/Attendee">Attendees</NavLink>
         </div>
       </nav>
 
