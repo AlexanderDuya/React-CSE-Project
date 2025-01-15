@@ -1,0 +1,26 @@
+
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: "Poppings", sans-serif;
+
+
+}
+
+div.layout{
+    background: red;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
+  
+
+  
+    
+    main{
+        padding: 20px;
+        background: white;
+    }
+}
