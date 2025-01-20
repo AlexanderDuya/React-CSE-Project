@@ -8,10 +8,10 @@ function Navbar(){
           <NavLink to="/">Home</NavLink>
         </div>
         <div className='navItem'>
-          <NavLink to="/Classes">Classes</NavLink>
+          <NavLink to="/Classes">Client View</NavLink>
         </div>
         <div className='navItem'>
-          <NavLink to="/Attendee">Attendees</NavLink>
+          <NavLink to="/Attendee">Instructor View</NavLink>
         </div>
       </nav>
 
