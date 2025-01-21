@@ -8,8 +8,8 @@ function Classes(){
           ClassCourseID: 1,
           ClassCourseName: "Spring into Spring 2025",
           ClassDay: new Date("2025-03-01"),
-          ClassTime: "18:30",
-          ClassDuration: 60,
+          ClassTime: "18:57",
+          ClassDuration: 90,
           ClassLocationID: 1,
           ClassLocationName: "Surbiton Pilates Studio, Room A",
           ClassCapacity: 25,
@@ -152,7 +152,7 @@ function Classes(){
           ClassCourseID: 1,
           ClassCourseName: "Spring into Spring 2025",
           ClassDay: new Date("2025-05-03"),
-          ClassTime: "18:30",
+          ClassTime: "18:00",
           ClassDuration: 60,
           ClassLocationID: 1,
           ClassLocationName: "Surbiton Pilates Studio, Room A",
@@ -164,9 +164,66 @@ function Classes(){
           ClassImageURL: "https://img.freepik.com/free-photo/group-sporty-people-dead-body-exercise_1163-4995.jpg?t=st=1737147244~exp=1737150844~hmac=d6134f639f6ecab03b229d9ada9b26f4fa7a816c41fdb522954012c7f600c63e&w=1480",
         }
       ];
+
+      const getEndTime = (hours,mins,duration) =>
+      {
+        let incHour = 0;
+
+        let addhour = (Math.floor(duration / 60));
+
+        hours = hours + addhour;
+
+        let checkmins = (mins + (duration - (60 *Math.floor(duration / 60))));
+     
+        //Check if we are adding time less than an hour
+        if (addhour == 0)
+        {
+          addhour = 1;
+
+          checkmins = (mins + duration);
+
+          mins = mins + duration;
+          //Check if time we add will go past 59
+          if (checkmins >59)
+          {
+            incHour = 1;
+            mins = (checkmins - 60);
+          }
+        }
+        if ((addhour > 0) && (checkmins > 59))
+        {
+          incHour = 1;
+          mins = (checkmins - 60);
+        }
+        else if ((addhour > 0))
+        {
+          mins = mins + (duration - addhour * 60);
+        }
+
+        hours = hours + incHour;
+
+        hours = hours.toString();
+
+        mins = mins.toString();
+
+        if (mins == 0)
+        {
+          mins = "00";
+        }
+
+        else if (mins > 0 && mins < 10)
+        {
+          mins = "0"+mins;
+        }
+
+        const value = hours + ":" + mins;
+
+        return value;
+        
+      }
     
       classes.sort((a, b) => a.classDay - b.classDay);
-      console.log(classes);
+      //console.log(classes);
     
       return (
         <>
@@ -174,6 +231,13 @@ function Classes(){
           <div className='cardContainer'>
           {
             classes.map((class1)=>{
+
+              let hour = parseInt(class1.ClassTime.substring(0,2));
+
+              let min = parseInt(class1.ClassTime.substring(3,6))
+
+              const value = getEndTime(hour, min, class1.ClassDuration);
+
               return(
               <div className='classesCard' key={class1.ClassTitle}>
               <div className='card'>
@@ -185,7 +249,7 @@ function Classes(){
                 <h1>{class1.ClassTitle}</h1>
                 <div className='text'>
                 <p>on <b>{class1.ClassDay.toLocaleDateString()}</b></p>
-                <p>{class1.ClassTime} | {class1.ClassDuration} mins</p>
+                <p>{class1.ClassTime} - {value} | {class1.ClassDuration} mins</p>
                 <p>with {class1.ClassInstructorName}</p>
                 </div>
                 </div>
