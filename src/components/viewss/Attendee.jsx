@@ -15,28 +15,31 @@ function Attendee(){
       ClientAge: 28,
       ClientGenderID: 1,
       ClientGenderName: "Male",
+      ClassCourseID: 1,
     },
     {
       ClientID: 2,
       ClientFirstname: "Aisha",
-      ClientLastname: "Ahmed", 
+      ClientLastname: "Ahmed",
       ClientEmail: "aisha.ahmed@example.com",
       ClientPhone: "+44 7911 567890",
       ClientDatejoined: new Date("2024-06-01"),
       ClientAge: 34,
       ClientGenderID: 2,
       ClientGenderName: "Female",
+      ClassCourseID: 2,
     },
     {
       ClientID: 3,
       ClientFirstname: "Zara",
-      ClientLastname: "Patel", 
+      ClientLastname: "Patel",
       ClientEmail: "zara.patel@example.com",
       ClientPhone: "+44 7911 876543",
       ClientDatejoined: new Date("2022-11-20"),
       ClientAge: 25,
       ClientGenderID: 2,
       ClientGenderName: "Female",
+      ClassCourseID: 3,
     },
     {
       ClientID: 4,
@@ -48,6 +51,7 @@ function Attendee(){
       ClientAge: 30,
       ClientGenderID: 2,
       ClientGenderName: "Female",
+      ClassCourseID: 4,
     },
     {
       ClientID: 5,
@@ -59,6 +63,7 @@ function Attendee(){
       ClientAge: 26,
       ClientGenderID: 2,
       ClientGenderName: "Female",
+      ClassCourseID: 5,
     },
     {
       ClientID: 6,
@@ -70,6 +75,7 @@ function Attendee(){
       ClientAge: 29,
       ClientGenderID: 1,
       ClientGenderName: "Male",
+      ClassCourseID: 6,
     },
     {
       ClientID: 7,
@@ -81,27 +87,30 @@ function Attendee(){
       ClientAge: 32,
       ClientGenderID: 2,
       ClientGenderName: "Female",
+      ClassCourseID: 7,
     },
     {
       ClientID: 8,
       ClientFirstname: "Sofia",
-      ClientLastname: "Garcia", 
+      ClientLastname: "Garcia",
       ClientEmail: "sofia.garcia@example.com",
       ClientPhone: "+44 7911 432109",
       ClientDatejoined: new Date("2022-12-15"),
       ClientAge: 24,
       ClientGender: "Female",
+      ClassCourseID: 8,
     },
     {
       ClientID: 9,
       ClientFirstname: "Kai",
-      ClientLastname: "Tanaka", 
+      ClientLastname: "Tanaka",
       ClientEmail: "kai.tanaka@example.com",
       ClientPhone: "+44 7911 654321",
       ClientDatejoined: new Date("2023-10-01"),
       ClientAge: 27,
       ClientGenderID: 3,
       ClientGenderName: "Rather not say",
+      ClassCourseID: 9,
     },
     {
       ClientID: 10,
@@ -113,6 +122,7 @@ function Attendee(){
       ClientAge: 33,
       ClientGenderID: 1,
       ClientGenderName: "Male",
+      ClassCourseID: 10,
     },
     {
       ClientID: 11,
@@ -124,17 +134,19 @@ function Attendee(){
       ClientAge: 31,
       ClientGenderID: 2,
       ClientGenderName: "Female",
+      ClassCourseID: 1,
     },
     {
       ClientID: 12,
       ClientFirstname: "Jamal",
-      ClientLastname: "Ali", 
+      ClientLastname: "Ali",
       ClientEmail: "jamal.ali@example.com",
       ClientPhone: "+44 7911 987654",
       ClientDatejoined: new Date("2024-09-01"),
       ClientAge: 28,
       ClientGenderID: 1,
       ClientGenderName: "Male",
+      ClassCourseID: 2,
     },
     {
       ClientID: 13,
@@ -146,6 +158,7 @@ function Attendee(){
       ClientAge: 26,
       ClientGenderID: 2,
       ClientGenderName: "Female",
+      ClassCourseID: 3,
     },
     {
       ClientID: 14,
@@ -157,6 +170,7 @@ function Attendee(){
       ClientAge: 35,
       ClientGenderID: 1,
       ClientGenderName: "Male",
+      ClassCourseID: 4,
     },
     {
       ClientID: 15,
@@ -168,8 +182,10 @@ function Attendee(){
       ClientAge: 22,
       ClientGenderID: 2,
       ClientGenderName: "Female",
-    }
+      ClassCourseID: 5,
+    },
   ];
+  
     return(
 <>
         <h1>Attendees</h1>

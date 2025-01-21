@@ -3,6 +3,7 @@ import Layout from './components/layoutt/Layout.jsx';
 import Classes from './components/viewss/Classes.jsx';
 import Home from './components/viewss/Home.jsx';
 import Attendee from './components/viewss/Attendee.jsx';
+import ClassesTwo from './components/viewss/ClassesTwo.jsx';
 import PageNotFound from './components/viewss/404.jsx';
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
       <Route path='/' element={<Home />}/>
 
       <Route path='/Classes' element={<Classes/>}/>
+
+      <Route path='/ClassesTwo' element={<ClassesTwo/>}/>
 
       <Route path='/Attendee' element={<Attendee/>}/>
 

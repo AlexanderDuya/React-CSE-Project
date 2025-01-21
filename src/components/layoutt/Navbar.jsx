@@ -11,7 +11,7 @@ function Navbar(){
           <NavLink to="/Classes">Client View</NavLink>
         </div>
         <div className='navItem'>
-          <NavLink to="/Attendee">Instructor View</NavLink>
+          <NavLink to="/ClassesTwo">Instructor View</NavLink>
         </div>
       </nav>
 
