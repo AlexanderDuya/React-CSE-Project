@@ -1,5 +1,5 @@
 import '../viewss/Classes.scss';
-import { Card, CardContainer } from '../UI/Card.jsx';
+
 
 function Classes(){
     const classes = [
@@ -170,7 +170,8 @@ function Classes(){
     
       return (
         <>
-          <h1>Classes</h1>
+          <h1 id='firstTitle'>Hello User!</h1>
+          <h2 id='secondTitle'>Upcoming classes</h2>
           <div className='cardContainer'>
           {
             classes.map((class1)=>{

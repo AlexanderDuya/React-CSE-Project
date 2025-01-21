@@ -16,7 +16,6 @@
   
     ul {
       list-style-type: none;
-      padding: 0;
   
       li {
         background-color: #ffffff;
@@ -46,4 +45,36 @@
       }
     }
   }
+
+  #firstTitle{
+    font-size: 24px;           // Sets the font size
+    color: #333;               // Sets the text color
+    font-weight: bold;         // Makes the text bold
+    text-align: center;        // Centers the text
+    margin-top: 20px;          // Adds a margin at the top
+    margin-bottom: 10px;       // Adds a margin at the bottom
+    text-transform: uppercase; // Transforms the text to uppercase
+    letter-spacing: 2px;       // Adds space between letters
+
+    // Optional: Add padding to the text
+    padding: 0px 0px 0px;
+
+  }
+
+  #secondTitle {
+    font-size: 24px;           // Sets the font size
+    color: #333;               // Sets the text color
+    font-weight: bold;         // Makes the text bold
+    text-align: center;        // Centers the text
+    margin-top: 20px;          // Adds a margin at the top
+    margin-bottom: 10px;       // Adds a margin at the bottom
+    text-transform: uppercase; // Transforms the text to uppercase
+    letter-spacing: 2px;       // Adds space between letters
+
+    // Optional: Add a border at the bottom
+    border-bottom: 2px solid #000;
+
+    // Optional: Add padding to the text
+    padding: 0px 0px 5px;
+}
   

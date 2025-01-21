@@ -1,6 +1,4 @@
 import '../viewss/Classes.scss';
-import { Card, CardContainer } from '../UI/Card.jsx';
-import { NavLink } from 'react-router-dom'; 
 import '../layoutt/Navbar.scss';
 import '../viewss/ClassesTwo.scss';
 import React, { useState } from 'react';
@@ -355,24 +353,46 @@ function ClassesTwo(){
         },
       ];
     
-    const getAttendeesForClass = (classCourseID) => {
-        return attendees.filter(attendee => attendee.ClassCourseID === classCourseID);
-    };
+    // Function to retrieve a list of attendees for a specific class based on its ID
+function getAttendeesForClass(classCourseID) {
+  // Use the 'filter' method to iterate over the 'attendees' array
+  return attendees.filter(function(attendee) {
+      // Check if the 'ClassCourseID' property of the current attendee matches the given 'classCourseID'
+      return attendee.ClassCourseID === classCourseID;
+  });
+  // The function returns a new array containing only attendees whose 'ClassCourseID' matches the specified 'classCourseID'
+}
 
-    const handleClassClick = (classCourseID) => {
-        setSelectedClass(selectedClass === classCourseID ? null : classCourseID); // Toggle class view
-    };
 
-    
+
+    function handleClassClick(classCourseID) {
+      // Check if the clicked class is already selected
+      if (selectedClass === classCourseID) {
+          // If it is, deselect it by setting selectedClass to null
+          setSelectedClass(null);
+      } else {
+          // Otherwise, select the clicked class
+          setSelectedClass(classCourseID);
+      }
+  }
+
+    // main component rendering the list of classes and their attendees
       return (
-        <>
-            <h1>Classes</h1>
+        <>   
+      
+            <h1 id='firstTitle'>Hello Instructor!</h1>
+            <h2 id='secondTitle'> Your classes</h2>
             <div className='cardContainer'>
-            {
+            {   // Iterate through the list of classes, creates a card for each one
                 classes.map((class1) => {
+                  // uses getAttendees for Class function to retrieve the current attendees for the current class
                     const classAttendees = getAttendeesForClass(class1.ClassCourseID);
+
+                    // Render the card for each of the classes
                     return(
                         <div className='classesCard' key={class1.ClassCourseID}>
+
+                          {/* when clicked the handleClass fucntion is called and passes the*/}
                             <div className='card' onClick={() => handleClassClick(class1.ClassCourseID)}>
                                 <div className='rightCard'>
                                     <img src={class1.ClassImageURL} alt={class1.ClassTitle} />
@@ -387,21 +407,23 @@ function ClassesTwo(){
                                 </div>
                             </div>
                             
-                            {/* Show attendees for selected class */}
-                            {selectedClass === class1.ClassCourseID && (
-                                <div className='attendeesList'>
-                                    <h2>Attendees</h2>
-                                    <ul>
-                                    {classAttendees.map(attendee => (
-                                        <li key={attendee.ClientID}>
-                                            <p>{attendee.ClientFirstname} {attendee.ClientLastname}</p>
-                                            <p>Email: {attendee.ClientEmail}</p>
-                                            <p>Phone: {attendee.ClientPhone}</p>
-                                        </li>
-                                    ))}
-                                    </ul>
-                                </div>
-                            )}
+                            {/* When the class is selected, show its attendees*/}
+                            {selectedClass === class1.ClassCourseID ? (  // Check if selectedClass matches the current class's ID
+                            <div className='attendeesList'>
+                               <h2>Attendees</h2>
+                                  <ul>
+                                      {classAttendees.map(attendee => (  // Map through the class attendees to render each one
+                                         <li key={attendee.ClientID}>
+                                            <p>{attendee.ClientFirstname} {attendee.ClientLastname}</p>  {/* Display attendee's name */}
+                                            <p>Email: {attendee.ClientEmail}</p>  {/* Display attendee's email */}
+                                            <p>Phone: {attendee.ClientPhone}</p>  {/* Display attendee's phone number */}
+                                            <p>Gender: {attendee.ClientGenderName}</p>
+                                         </li>
+                                           ))}
+                                  </ul>
+                            </div>
+                           ) : null}  {/* If selectedClass does not match, render nothing (null)*/}
+
                         </div>
                     );
                 })
