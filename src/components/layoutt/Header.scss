@@ -1,8 +1,12 @@
 header{
-    padding: 0 5px;
+    padding: 10px 0px;
     background: black;
 
-    h1 { color: white;}
+    h1 { color: white;
+        padding: 0px 10px 0px;
+        ;}
 
-    p.welcome { color: limegreen;}
+    p.welcome { color: white;
+    padding: 10px 10px 10px;
+    }
     }
