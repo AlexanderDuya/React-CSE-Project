@@ -1,13 +1,146 @@
-div.cardContainer {
-    div.classesCard {
+#firstTitle1 {
+  font-size: 24px; // Sets the font size
+  color: #333; // Sets the text color
+  font-weight: bold; // Makes the text bold
+  text-align: center; // Centers the text
+  margin-top: 20px; // Adds a margin at the top
+  margin-bottom: 10px; // Adds a margin at the bottom
+  text-transform: uppercase; // Transforms the text to uppercase
+  letter-spacing: 2px; // Adds space between letters
+
+  // Optional: Add padding to the text
+  padding: 0px 0px 0px;
+}
+
+#secondTitle1 {
+  font-size: 24px; // Sets the font size
+  color: #333; // Sets the text color
+  font-weight: bold; // Makes the text bold
+  text-align: center; // Centers the text
+  margin-top: 20px; // Adds a margin at the top
+  margin-bottom: 10px; // Adds a margin at the bottom
+  text-transform: uppercase; // Transforms the text to uppercase
+  letter-spacing: 2px; // Adds space between letters
+
+  // Optional: Add a border at the bottom
+  border-bottom: 2px solid #000;
+
+  // Optional: Add padding to the text
+  padding: 0px 0px 5px;
+}
+
+div.cardContainer1 {
+  div.classesCard1 {
+    width: 100%;
+  }
+
+  div.clientsCard1 {
+    width: 100%;
+  }
+
+  div.card1 {
+    width: auto;
+    height: 100%;
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    box-shadow: 4px 4px 8px 4px lightgray;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /*
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 6px 6px 12px 6px rgba(0, 0, 0, 0.15);
+      border-color: #d3d3d3;
+    }*/
+
+    div.leftCard1 {
+      width: 25%;
+      height: 100%;
+    }
+
+    div.rightCard1 {
+      padding: 30px;
+      width: 80%;
+    }
+
+    div.text1 {
+      font-size: large;
+
+      p.beforeExtra {
+        padding-bottom: 10px;
+      }
+
+      div.extraDiv {
+        animation-name: textTransition;
+        animation-duration: 10s;
+      }
+
+      @keyframes textTransition {
+        0% {
+          opacity: 0;
+        }
+        25% {
+          opacity: 25;
+        }
+        50% {
+          opacity: 50;
+        }
+        100% {
+          opacity: 100;
+        }
+      }
+
+      p.extra {
+        padding-top: 10px;
+      }
+      p.lastExtra {
+        padding-bottom: 10px;
+      }
+
+      button {
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+
+        font-weight: bold;
+        font-size: 14px;
+
+        &:hover {
+          background-color: darken(#f0f0f0, 10%);
+          cursor: pointer;
+        }
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+      transition: transform 0.3s ease;
+      /*
+      &:hover {
+        transform: scale(1.05);
+      }*/
+    }
+  }
+}
+@media only screen and (max-width: 783px) {
+  div.cardContainer1 {
+    div.classesCard1 {
       width: 100%;
     }
-  
-    div.clientsCard {
+
+    div.clientsCard1 {
       width: 100%;
     }
-  
-    div.card {
+
+    div.card1 {
       width: auto;
       height: 100%;
       padding: 20px;
@@ -16,42 +149,50 @@ div.cardContainer {
       border-radius: 20px;
       box-shadow: 4px 4px 8px 4px lightgray;
       display: flex;
-      flex-direction: row;
-      align-items: start;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
+      /*
       &:hover {
         transform: translateY(-10px);
         box-shadow: 6px 6px 12px 6px rgba(0, 0, 0, 0.15);
         border-color: #d3d3d3;
-      }
-  
-      div.rightCard {
-        width: 25%;
+      }*/
+
+      div.leftCard1 {
+        width: 75%;
         height: 100%;
+        text-align: center;
       }
-  
-      div.leftCard {
+
+      div.rightCard1 {
         padding: 30px;
         width: 80%;
+        text-align: center;
       }
-  
-      div.text {
+
+      div.text1 {
         font-size: large;
       }
-  
+
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 20px;
         transition: transform 0.3s ease;
-  
+        /*
         &:hover {
           transform: scale(1.05);
-        }
+        }*/
       }
     }
   }
-  
+}
+
+@media only screen and (max-width: 586px) {
+  h1.title {
+    font-size: 24px;
+  }
+}
