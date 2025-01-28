@@ -167,7 +167,7 @@ function Attendee() {
       ClientFirstname: "Charlie",
       ClientLastname: "Williams",
 
-      ClientEmail: "charlie.williams@example.com",
+      ClientEmail: "charlie.will@example.com",
       ClientPhone: "123-456-7892",
       ClientDatejoined: new Date("2023-03-01"),
       ClientAge: 28,
@@ -321,7 +321,7 @@ function Attendee() {
       ClientFirstname: "Charlie",
       ClientLastname: "Williams",
 
-      ClientEmail: "charlie.williams@example.com",
+      ClientEmail: "charlie.will@example.com",
       ClientPhone: "123-456-7892",
       ClientDatejoined: new Date("2023-03-01"),
       ClientAge: 28,
@@ -401,7 +401,7 @@ function Attendee() {
     <div>
       {/* Title at the top of the page */}
       <h2 className="page-title">
-        Here are your attendees for the class: {classId}
+        Here are your attendees for class {classId}
       </h2>
 
       <div className="attendee-container">
