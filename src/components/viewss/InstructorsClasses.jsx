@@ -1,7 +1,12 @@
-import '../viewss/Classes.scss';
-import { useState } from "react";
+import "../viewss/ClientClasses.scss";
+import "../layoutt/Navbar.scss";
+import "../viewss/InstructorsClasses.scss";
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 
-function Classes() {
+function InstructorsClasses() {
+  const [selectedClass, setSelectedClass] = useState();
+
   const classes = [
     {
       ClassTitle: "Foundations and Breathwork",
@@ -177,26 +182,20 @@ function Classes() {
 
   const getEndTime = (hours, mins, duration) => {
     let incHour = 0;
-
     let addhour = Math.floor(duration / 60);
-
     hours = hours + addhour;
-
     let checkmins = mins + (duration - 60 * Math.floor(duration / 60));
 
-    //Check if we are adding time less than an hour
     if (addhour == 0) {
       addhour = 1;
-
       checkmins = mins + duration;
-
       mins = mins + duration;
-      //Check if time we add will go past 59
       if (checkmins > 59) {
         incHour = 1;
         mins = checkmins - 60;
       }
     }
+
     if (addhour > 0 && checkmins > 59) {
       incHour = 1;
       mins = checkmins - 60;
@@ -205,9 +204,7 @@ function Classes() {
     }
 
     hours = hours + incHour;
-
     hours = hours.toString();
-
     mins = mins.toString();
 
     if (mins == 0) {
@@ -216,89 +213,71 @@ function Classes() {
       mins = "0" + mins;
     }
 
-    const value = hours + ":" + mins;
-
-    return value;
+    return hours + ":" + mins;
   };
 
-  const [selectedClass, setSelectedClass] = useState();
-  function handleClassClick(classCourseID) {
-    // Check if the clicked class is already selected
-    if (selectedClass === classCourseID) {
-      // If it is, deselect it by setting selectedClass to null
-      setSelectedClass(null);
-    } else {
-      // Otherwise, select the clicked class
-      setSelectedClass(classCourseID);
-    }
-  }
+  const handleClassClick = (classCourseID) => {
+    setSelectedClass(classCourseID);
+  };
 
-  classes.sort((a, b) => a.classDay - b.classDay);
-  //console.log(classes);
+  classes.sort((a, b) => a.ClassDay - b.ClassDay);
 
   return (
     <>
-      <h1 id="firstTitle1">Hello User!</h1>
-      <h2 id="secondTitle1">Upcoming classes</h2>
-      <div className="cardContainer1">
-        {classes.map((class1) => {
-          let hour = parseInt(class1.ClassTime.substring(0, 2));
+      <div className="instructors-classes">
+        <h1 id="firstTitle1">Hello Instructor!</h1>
+        <h2 id="secondTitle1">Upcoming Classes</h2>
+        <div className="cardContainer1">
+          {classes.map((cls) => {
+            let hour = parseInt(cls.ClassTime.substring(0, 2));
+            let min = parseInt(cls.ClassTime.substring(3, 6));
+            const value = getEndTime(hour, min, cls.ClassDuration);
 
-          let min = parseInt(class1.ClassTime.substring(3, 6));
-
-          const value = getEndTime(hour, min, class1.ClassDuration);
-
-          return (
-            <div className="classesCard1" key={class1.ClassTitle}>
-              <div className="card1">
-                <div className="leftCard1">
-                  <img src={class1.ClassImageURL}></img>
-                </div>
-                <div className="rightCard1">
-                  <h1 className="title">{class1.ClassTitle}</h1>
-                  <div className="text1">
-                    <p>
-                      on <b>{class1.ClassDay.toLocaleDateString()}</b>
-                    </p>
-
-                    <p>
-                      {class1.ClassTime} - {value} | {class1.ClassDuration} mins
-                    </p>
-                    <p className="beforeExtra">
-                      with {class1.ClassInstructorName}
-                    </p>
-                    {selectedClass === class1.ClassCourseID ? (
-                      <div>
-                        <div className="extraDiv">
-                          <hr></hr>
-                          <p className="extra">at {class1.ClassLocationName}</p>
-                          <p className="lastExtra">
-                            Max Capacity is {class1.ClassCapacity} People
-                          </p>
-                          
+            return (
+              <div className="classesCard1" key={cls.ClassCourseID}>
+                <div className="card1">
+                  <div className="leftCard1">
+                    <img src={cls.ClassImageURL} alt={cls.ClassTitle} />
+                  </div>
+                  <div className="rightCard1">
+                    <h1 className="title">{cls.ClassTitle}</h1>
+                    <div className="text1">
+                      <p>
+                        on <b>{cls.ClassDay.toLocaleDateString()}</b>
+                      </p>
+                      <p>
+                        {cls.ClassTime} - {value} | {cls.ClassDuration} mins
+                      </p>
+                      <p className="beforeExtra">
+                        with {cls.ClassInstructorName}
+                      </p>
+                      {selectedClass === cls.ClassCourseID ? (
+                        <div>
+                          <div className="extraDiv">
+                            <hr />
+                            <p className="extra">at {cls.ClassLocationName}</p>
+                            <p className="lastExtra">
+                              Max Capacity is {cls.ClassCapacity} People
+                            </p>
+                          </div>
                         </div>
-                        <button
-                            onClick={() => handleClassClick(class1.ClassCourseID)}
-                          >
-                            -
-                          </button>
-                      </div>
-                    ) : (
-                      <button
-                        onClick={() => handleClassClick(class1.ClassCourseID)}
+                      ) : null}
+                      <NavLink
+                        to={`/Attendee?classId=${cls.ClassCourseID}`}
+                        className="view-attendees-link"
                       >
-                        +
-                      </button>
-                    )}
+                        View Attendees
+                      </NavLink>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </>
   );
 }
 
-export default Classes;
+export default InstructorsClasses;

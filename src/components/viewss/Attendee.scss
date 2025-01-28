@@ -1,5 +1,79 @@
-div.attendeeCard{
-    width: 250px;
+.attendeeContainer {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(300px, 1fr)
+  ); /* Creates responsive grid */
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
 
+/* Style for each individual attendee card */
+.attendeeCard {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between; /* This ensures the button is pushed to the bottom */
+  height: 100%; /* Ensure the card takes up the full available height */
+  font-family: Arial, sans-serif;
+}
 
+/* Styling for the text inside the card */
+.attendeeCard p {
+  font-size: 14px;
+  color: #555;
+  margin: 5px 0;
+}
+
+.attendeeCard p b {
+  color: #333;
+}
+
+/* Button for toggling attendance */
+.attendeeButton {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: auto; /* This pushes the button to the bottom of the card */
+  text-align: center;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  height: 45px; /* Fixed height to ensure consistency */
+  box-sizing: border-box; /* Ensures padding is included in the button's height */
+}
+
+/* Color styles for 'Present' and 'Absent' states */
+.attendeeButton.absent {
+  background-color: #f44336; /* Red for absent */
+  color: white;
+}
+
+.attendeeButton.present {
+  background-color: #4caf50; /* Green for present */
+  color: white;
+}
+
+/* Small screen responsiveness (for mobile devices) */
+@media (max-width: 768px) {
+  .attendeeContainer {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(200px, 1fr)
+    ); /* Adjust width for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .attendeeContainer {
+    grid-template-columns: 1fr; /* Stack the cards for very small screens */
+  }
 }

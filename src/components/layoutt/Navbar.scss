@@ -1,19 +1,34 @@
-nav{
-    padding: 5px 10px 5px;
-    background: gray;
-    display: flex;
-    gap: 10px;
-    text-decoration: none;
+nav {
+  padding: 10px 20px;
+  background: #2c3e50;
+  display: flex;
+  gap: 20px; /* Increased gap between the items */
+  align-items: center;
+  justify-content: center;
 
-    div.navItem a{
-        color: white;
-        text-decoration: none;
+  .navItem {
+    padding: 10px 15px;
+    border-radius: 5px; /* Rounded corners for each item */
 
-        &:hover{
-            color: black;
-        }
+    a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: color 0.3s ease, background-color 0.3s ease; /* Smooth hover transition */
+      padding: 5px 10px;
+      border-radius: 5px;
+
+      &:hover {
+        color: #fff;
+        background-color: dimgrey; /* Gold color for hover effect */
+      }
     }
-   
-    
+  }
 
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+    gap: 15px; /* Adjust gap for mobile view */
+  }
 }

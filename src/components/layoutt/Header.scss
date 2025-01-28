@@ -1,12 +1,30 @@
-header{
-    padding: 10px 0px;
-    background: black;
+header {
+  padding: 20px;
+  background: #000; /* Black background */
+  color: white;
+  text-align: center;
 
-    h1 { color: white;
-        padding: 0px 10px 0px;
-        ;}
+  h1 {
+    font-size: 2rem;
+    margin: 0;
+    padding-bottom: 10px;
+  }
 
-    p.welcome { color: white;
-    padding: 10px 10px 10px;
+  .welcome {
+    font-size: 1.1rem;
+    margin: 0;
+    padding-top: 5px;
+    font-style: italic;
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.5rem; /* Slightly smaller font on mobile */
     }
+
+    .welcome {
+      font-size: 1rem;
     }
+  }
+}

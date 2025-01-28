@@ -1,212 +1,141 @@
-import '../viewss/Attendee.scss';
-import { Card, CardContainer } from '../UI/Card.jsx';
+import "../viewss/Attendee.scss";
+import { Card, CardContainer } from "../UI/Card.jsx";
+import { useState } from "react";
+import { useLocation } from "react-router-dom"; // to get query params
+function Attendee() {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const classId = Number(queryParams.get("classId")); // Get classId from URL query params
 
+  console.log("Class ID from URL:", classId);
 
-function Attendee(){
+  const bookings = [
+    { BookingID: 1, ClientID: 1, ClassID: 1 },
+    { BookingID: 2, ClientID: 2, ClassID: 1 },
+    { BookingID: 2, ClientID: 3, ClassID: 1 },
+    { BookingID: 3, ClientID: 4, ClassID: 2 },
+    { BookingID: 4, ClientID: 5, ClassID: 1 },
+    { BookingID: 5, ClientID: 6, ClassID: 1 },
+    { BookingID: 6, ClientID: 6, ClassID: 2 },
+    { BookingID: 7, ClientID: 7, ClassID: 5 },
+    // Added additional booking for ClientID 6
+  ];
 
   const attendees = [
     {
       ClientID: 1,
-      ClientFirstname: "John",
-      ClientLastname: "Doe",
-      ClientEmail: "john.doe@example.com",
-      ClientPhone: "+44 7911 123456",
-      ClientDatejoined: new Date("2023-02-15"),
-      ClientAge: 28,
-      ClientGenderID: 1,
-      ClientGenderName: "Male",
-      ClassCourseID: 1,
+      ClientFirstname: "Alice",
+      ClientLastname: "Smith",
+
+      ClientEmail: "alice.smith@example.com",
+      ClientPhone: "123-456-7890",
+      ClientDatejoined: new Date("2023-01-01"),
+      ClientAge: 30,
+      ClientGenderName: "Female",
     },
     {
       ClientID: 2,
-      ClientFirstname: "Aisha",
-      ClientLastname: "Ahmed",
-      ClientEmail: "aisha.ahmed@example.com",
-      ClientPhone: "+44 7911 567890",
-      ClientDatejoined: new Date("2024-06-01"),
-      ClientAge: 34,
-      ClientGenderID: 2,
-      ClientGenderName: "Female",
-      ClassCourseID: 2,
+      ClientFirstname: "Bob",
+      ClientLastname: "Johnson",
+
+      ClientEmail: "bob.johnson@example.com",
+      ClientPhone: "123-456-7891",
+      ClientDatejoined: new Date("2023-02-01"),
+      ClientAge: 25,
+      ClientGenderName: "Male",
     },
     {
       ClientID: 3,
-      ClientFirstname: "Zara",
-      ClientLastname: "Patel",
-      ClientEmail: "zara.patel@example.com",
-      ClientPhone: "+44 7911 876543",
-      ClientDatejoined: new Date("2022-11-20"),
-      ClientAge: 25,
-      ClientGenderID: 2,
-      ClientGenderName: "Female",
-      ClassCourseID: 3,
+      ClientFirstname: "Charlie",
+      ClientLastname: "Williams",
+
+      ClientEmail: "charlie.williams@example.com",
+      ClientPhone: "123-456-7892",
+      ClientDatejoined: new Date("2023-03-01"),
+      ClientAge: 28,
+      ClientGenderName: "Male",
     },
     {
       ClientID: 4,
-      ClientFirstname: "Mia",
-      ClientLastname: "Brown",
-      ClientEmail: "mia.brown@example.com",
-      ClientPhone: "+44 7911 234567",
-      ClientDatejoined: new Date("2023-08-30"),
-      ClientAge: 30,
-      ClientGenderID: 2,
-      ClientGenderName: "Female",
-      ClassCourseID: 4,
+      ClientFirstname: "David",
+      ClientLastname: "Jones",
+
+      ClientEmail: "david.jones@example.com",
+      ClientPhone: "123-456-7893",
+      ClientDatejoined: new Date("2023-04-01"),
+      ClientAge: 32,
+      ClientGenderName: "Male",
     },
     {
       ClientID: 5,
-      ClientFirstname: "Sarah",
-      ClientLastname: "Lee",
-      ClientEmail: "sarah.lee@example.com",
-      ClientPhone: "+44 7911 345678",
-      ClientDatejoined: new Date("2024-01-10"),
-      ClientAge: 26,
-      ClientGenderID: 2,
+      ClientFirstname: "Eve",
+      ClientLastname: "Brown",
+
+      ClientEmail: "eve.brown@example.com",
+      ClientPhone: "123-456-7894",
+      ClientDatejoined: new Date("2023-05-01"),
+      ClientAge: 22,
       ClientGenderName: "Female",
-      ClassCourseID: 5,
     },
     {
       ClientID: 6,
-      ClientFirstname: "David",
-      ClientLastname: "Harris",
-      ClientEmail: "david.harris@example.com",
-      ClientPhone: "+44 7911 567987",
-      ClientDatejoined: new Date("2023-05-22"),
-      ClientAge: 29,
-      ClientGenderID: 1,
+      ClientFirstname: "Alex",
+      ClientLastname: "Duya",
+
+      ClientEmail: "alexduya123@gmail.com",
+      ClientPhone: "123-456-7894",
+      ClientDatejoined: new Date("2023-05-01"),
+      ClientAge: 22,
       ClientGenderName: "Male",
-      ClassCourseID: 6,
     },
     {
       ClientID: 7,
-      ClientFirstname: "Olivia",
-      ClientLastname: "Martinez",
-      ClientEmail: "olivia.martinez@example.com",
-      ClientPhone: "+44 7911 678012",
-      ClientDatejoined: new Date("2024-07-12"),
-      ClientAge: 32,
-      ClientGenderID: 2,
-      ClientGenderName: "Female",
-      ClassCourseID: 7,
-    },
-    {
-      ClientID: 8,
-      ClientFirstname: "Sofia",
-      ClientLastname: "Garcia",
-      ClientEmail: "sofia.garcia@example.com",
-      ClientPhone: "+44 7911 432109",
-      ClientDatejoined: new Date("2022-12-15"),
-      ClientAge: 24,
-      ClientGender: "Female",
-      ClassCourseID: 8,
-    },
-    {
-      ClientID: 9,
-      ClientFirstname: "Kai",
-      ClientLastname: "Tanaka",
-      ClientEmail: "kai.tanaka@example.com",
-      ClientPhone: "+44 7911 654321",
-      ClientDatejoined: new Date("2023-10-01"),
-      ClientAge: 27,
-      ClientGenderID: 3,
-      ClientGenderName: "Rather not say",
-      ClassCourseID: 9,
-    },
-    {
-      ClientID: 10,
-      ClientFirstname: "Daniel",
-      ClientLastname: "Thompson",
-      ClientEmail: "daniel.thompson@example.com",
-      ClientPhone: "+44 7911 765432",
-      ClientDatejoined: new Date("2024-03-10"),
-      ClientAge: 33,
-      ClientGenderID: 1,
-      ClientGenderName: "Male",
-      ClassCourseID: 10,
-    },
-    {
-      ClientID: 11,
-      ClientFirstname: "Isabella",
-      ClientLastname: "Robinson",
-      ClientEmail: "isabella.robinson@example.com",
-      ClientPhone: "+44 7911 876210",
-      ClientDatejoined: new Date("2023-07-18"),
-      ClientAge: 31,
-      ClientGenderID: 2,
-      ClientGenderName: "Female",
-      ClassCourseID: 1,
-    },
-    {
-      ClientID: 12,
-      ClientFirstname: "Jamal",
-      ClientLastname: "Ali",
-      ClientEmail: "jamal.ali@example.com",
-      ClientPhone: "+44 7911 987654",
-      ClientDatejoined: new Date("2024-09-01"),
-      ClientAge: 28,
-      ClientGenderID: 1,
-      ClientGenderName: "Male",
-      ClassCourseID: 2,
-    },
-    {
-      ClientID: 13,
-      ClientFirstname: "Mia",
-      ClientLastname: "Lewis",
-      ClientEmail: "mia.lewis@example.com",
-      ClientPhone: "+44 7911 246810",
-      ClientDatejoined: new Date("2023-01-12"),
-      ClientAge: 26,
-      ClientGenderID: 2,
-      ClientGenderName: "Female",
-      ClassCourseID: 3,
-    },
-    {
-      ClientID: 14,
-      ClientFirstname: "Ethan",
-      ClientLastname: "Hall",
-      ClientEmail: "ethan.hall@example.com",
-      ClientPhone: "+44 7911 135790",
-      ClientDatejoined: new Date("2024-02-22"),
-      ClientAge: 35,
-      ClientGenderID: 1,
-      ClientGenderName: "Male",
-      ClassCourseID: 4,
-    },
-    {
-      ClientID: 15,
-      ClientFirstname: "Ava",
-      ClientLastname: "Young",
-      ClientEmail: "ava.young@example.com",
-      ClientPhone: "+44 7911 369852",
-      ClientDatejoined: new Date("2023-11-05"),
+      ClientFirstname: "Alex",
+      ClientLastname: "Duya",
+
+      ClientEmail: "alexduya123@gmail.com",
+      ClientPhone: "123-456-7894",
+      ClientDatejoined: new Date("2023-05-01"),
       ClientAge: 22,
-      ClientGenderID: 2,
-      ClientGenderName: "Female",
-      ClassCourseID: 5,
+      ClientGenderName: "Male",
     },
   ];
-  
-    return(
-<>
-        <h1>Attendees</h1>
-        <CardContainer>
-        {
-          attendees.map((attendee)=>{
-            return(
-              <div className="attendeeCard" key={attendee.ClientEmail}>
-              <Card>
-                 
-                 <p>{`${attendee.ClientFirstname}  ${attendee.ClientLastname}`}</p>
-                 
-              </Card>
-              </div>
-            )
 
-          })
-        }
-        </CardContainer>
-        </>
-    );
+  // Step 1: Filter bookings to get ClientIDs for the given ClassID
+  const bookingForClass = bookings.filter(
+    (booking) => booking.ClassID === classId
+  );
+
+  // Step 2: Extract the ClientIDs from the filtered bookings
+  const clientIdsForClass = bookingForClass.map((booking) => booking.ClientID);
+
+  // Step 3: Find attendees whose ClientID matches the filtered ClientIDs
+  const filteredAttendees = attendees.filter((attendee) =>
+    clientIdsForClass.includes(attendee.ClientID)
+  );
+
+  return (
+    <div className="attendee-container">
+      {filteredAttendees.length > 0 ? (
+        filteredAttendees.map((attendee) => (
+          <CardContainer key={attendee.ClientID}>
+            <Card>
+              <h3>
+                {attendee.ClientFirstname} {attendee.ClientLastname}
+              </h3>
+              <p>Email: {attendee.ClientEmail}</p> {/* Removed the extra "a" */}
+              <p>Phone: {attendee.ClientPhone}</p>
+              <p>Joined on: {attendee.ClientDatejoined.toLocaleDateString()}</p>
+              <p>Age: {attendee.ClientAge}</p>
+              <p>Gender: {attendee.ClientGenderName}</p>
+            </Card>
+          </CardContainer>
+        ))
+      ) : (
+        <p>No attendees for this class yet.</p>
+      )}
+    </div>
+  );
 }
 
 export default Attendee;
