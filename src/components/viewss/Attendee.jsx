@@ -1,5 +1,4 @@
 import "../viewss/Attendee.scss";
-import { Card, CardContainer } from "../UI/Card.jsx";
 import { useState } from "react";
 import { useLocation } from "react-router-dom"; // to get query params
 function Attendee() {
@@ -143,10 +142,10 @@ function Attendee() {
   const attendees = [
     {
       ClientID: 1,
-      ClientFirstname: "Alice",
-      ClientLastname: "Smith",
+      ClientFirstname: "Graeme",
+      ClientLastname: "Jones",
 
-      ClientEmail: "alice.smith@example.com",
+      ClientEmail: "G.Jones@example.com",
       ClientPhone: "123-456-7890",
       ClientDatejoined: new Date("2023-01-01"),
       ClientAge: 30,
@@ -198,10 +197,10 @@ function Attendee() {
     },
     {
       ClientID: 6,
-      ClientFirstname: "Alex",
-      ClientLastname: "Duya",
+      ClientFirstname: "John",
+      ClientLastname: "Duyanski",
 
-      ClientEmail: "alexduya123@gmail.com",
+      ClientEmail: "John123@gmail.com",
       ClientPhone: "123-456-7894",
       ClientDatejoined: new Date("2023-05-01"),
       ClientAge: 22,
@@ -209,10 +208,10 @@ function Attendee() {
     },
     {
       ClientID: 7,
-      ClientFirstname: "Alex",
-      ClientLastname: "Duya",
+      ClientFirstname: "Alexander",
+      ClientLastname: "TheGreat",
 
-      ClientEmail: "alexduya123@gmail.com",
+      ClientEmail: "alex123@gmail.com",
       ClientPhone: "123-456-7894",
       ClientDatejoined: new Date("2023-05-01"),
       ClientAge: 22,
@@ -220,8 +219,8 @@ function Attendee() {
     },
     {
       ClientID: 8,
-      ClientFirstname: "Alice",
-      ClientLastname: "Smith",
+      ClientFirstname: "Alicia",
+      ClientLastname: "Smithers",
 
       ClientEmail: "alice.smith@example.com",
       ClientPhone: "123-456-7890",
@@ -232,9 +231,9 @@ function Attendee() {
     {
       ClientID: 9,
       ClientFirstname: "Bob",
-      ClientLastname: "Johnson",
+      ClientLastname: "Marley",
 
-      ClientEmail: "bob.johnson@example.com",
+      ClientEmail: "bob@example.com",
       ClientPhone: "123-456-7891",
       ClientDatejoined: new Date("2023-02-01"),
       ClientAge: 25,
@@ -242,10 +241,10 @@ function Attendee() {
     },
     {
       ClientID: 10,
-      ClientFirstname: "Charlie",
-      ClientLastname: "Williams",
+      ClientFirstname: "Carlos",
+      ClientLastname: "Greggs",
 
-      ClientEmail: "charlie.williams@example.com",
+      ClientEmail: "Carlos@example.com",
       ClientPhone: "123-456-7892",
       ClientDatejoined: new Date("2023-03-01"),
       ClientAge: 28,
@@ -254,9 +253,9 @@ function Attendee() {
     {
       ClientID: 11,
       ClientFirstname: "David",
-      ClientLastname: "Jones",
+      ClientLastname: "Lopez",
 
-      ClientEmail: "david.jones@example.com",
+      ClientEmail: "david@example.com",
       ClientPhone: "123-456-7893",
       ClientDatejoined: new Date("2023-04-01"),
       ClientAge: 32,
@@ -286,10 +285,10 @@ function Attendee() {
     },
     {
       ClientID: 14,
-      ClientFirstname: "Alex",
-      ClientLastname: "Duya",
+      ClientFirstname: "George",
+      ClientLastname: "Russell",
 
-      ClientEmail: "alexduya123@gmail.com",
+      ClientEmail: "GR123@gmail.com",
       ClientPhone: "123-456-7894",
       ClientDatejoined: new Date("2023-05-01"),
       ClientAge: 22,
@@ -308,10 +307,10 @@ function Attendee() {
     },
     {
       ClientID: 16,
-      ClientFirstname: "Bob",
-      ClientLastname: "Johnson",
+      ClientFirstname: "Agostine",
+      ClientLastname: "Samson",
 
-      ClientEmail: "bob.johnson@example.com",
+      ClientEmail: "AS@example.com",
       ClientPhone: "123-456-7891",
       ClientDatejoined: new Date("2023-02-01"),
       ClientAge: 25,
@@ -331,9 +330,9 @@ function Attendee() {
     {
       ClientID: 18,
       ClientFirstname: "David",
-      ClientLastname: "Jones",
+      ClientLastname: "Jeje",
 
-      ClientEmail: "david.jones@example.com",
+      ClientEmail: "david.j@example.com",
       ClientPhone: "123-456-7893",
       ClientDatejoined: new Date("2023-04-01"),
       ClientAge: 32,
@@ -341,7 +340,7 @@ function Attendee() {
     },
     {
       ClientID: 19,
-      ClientFirstname: "Eve",
+      ClientFirstname: "Evelyn",
       ClientLastname: "Brown",
 
       ClientEmail: "eve.brown@example.com",
@@ -352,10 +351,10 @@ function Attendee() {
     },
     {
       ClientID: 20,
-      ClientFirstname: "Alex",
-      ClientLastname: "Duya",
+      ClientFirstname: "Lewis",
+      ClientLastname: "Rusky",
 
-      ClientEmail: "alexduya123@gmail.com",
+      ClientEmail: "Lr123@gmail.com",
       ClientPhone: "123-456-7894",
       ClientDatejoined: new Date("2023-05-01"),
       ClientAge: 22,
@@ -363,8 +362,8 @@ function Attendee() {
     },
     {
       ClientID: 21,
-      ClientFirstname: "Alex",
-      ClientLastname: "Duya",
+      ClientFirstname: "Paul",
+      ClientLastname: "Neve",
 
       ClientEmail: "alexduya123@gmail.com",
       ClientPhone: "123-456-7894",
@@ -420,8 +419,11 @@ function Attendee() {
               <button onClick={() => toggleAttendance(attendee.ClientID)}>
                 {attendance[attendee.ClientID] ? "Mark Absent" : "Mark Present"}
               </button>
-              <p>
-                Status: {attendance[attendee.ClientID] ? "Present" : "Absent"}
+              <p>Status:</p>
+              <p
+                className={attendance[attendee.ClientID] ? "present" : "absent"}
+              >
+                {attendance[attendee.ClientID] ? "Present" : "Absent"}
               </p>
             </div>
           </div>

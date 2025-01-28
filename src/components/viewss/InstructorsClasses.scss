@@ -80,7 +80,7 @@
 // Styling for the NavLink as a button
 .view-attendees-link {
   display: inline-block;
-  background-color: dimgray; // Button background color
+  background-color: #2c3e50; // Button background color
   color: white; // Button text color
   padding: 10px 20px; // Button padding
   border-radius: 5px; // Rounded corners
@@ -92,7 +92,7 @@
   transition: background-color 0.3s ease, transform 0.2s ease; // Smooth transition for hover effects
 
   &:active {
-    background-color: dimgray; // Even darker blue when clicked
+    background-color: #1f3245; // Even darker blue when clicked
     transform: translateY(0); // Reset lift on click
   }
 
