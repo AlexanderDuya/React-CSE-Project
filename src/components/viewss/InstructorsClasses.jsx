@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 function InstructorsClasses() {
-  const [selectedClass, setSelectedClass] = useState();
+  const [selectedClass] = useState();
 
   const classes = [
     {
@@ -214,10 +214,6 @@ function InstructorsClasses() {
     }
 
     return hours + ":" + mins;
-  };
-
-  const handleClassClick = (classCourseID) => {
-    setSelectedClass(classCourseID);
   };
 
   classes.sort((a, b) => a.ClassDay - b.ClassDay);

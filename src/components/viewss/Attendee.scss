@@ -1,79 +1,113 @@
-.attendeeContainer {
+.attendee-container {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(300px, 1fr)
-  ); /* Creates responsive grid */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
   padding: 20px;
-  box-sizing: border-box;
-}
+  background-color: #f9f9f9;
 
-/* Style for each individual attendee card */
-.attendeeCard {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between; /* This ensures the button is pushed to the bottom */
-  height: 100%; /* Ensure the card takes up the full available height */
-  font-family: Arial, sans-serif;
-}
+  .card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-/* Styling for the text inside the card */
-.attendeeCard p {
-  font-size: 14px;
-  color: #555;
-  margin: 5px 0;
-}
+    .card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      min-width: 280px;
+      max-width: 320px;
+      height: auto;
+      margin: 0 auto;
 
-.attendeeCard p b {
-  color: #333;
-}
+      .card-title {
+        font-size: 1.25rem;
+        margin-bottom: 8px;
+        color: #333;
+      }
 
-/* Button for toggling attendance */
-.attendeeButton {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: auto; /* This pushes the button to the bottom of the card */
-  text-align: center;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  height: 45px; /* Fixed height to ensure consistency */
-  box-sizing: border-box; /* Ensures padding is included in the button's height */
-}
+      .card-detail {
+        font-size: 0.9rem;
+        color: #555;
+        margin-bottom: 6px;
+      }
 
-/* Color styles for 'Present' and 'Absent' states */
-.attendeeButton.absent {
-  background-color: #f44336; /* Red for absent */
-  color: white;
-}
+      /* Attendance Section */
+      .attendance-section {
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
 
-.attendeeButton.present {
-  background-color: #4caf50; /* Green for present */
-  color: white;
-}
+        label {
+          font-size: 1rem;
+          color: #333;
+          display: flex;
+          align-items: center;
 
-/* Small screen responsiveness (for mobile devices) */
-@media (max-width: 768px) {
-  .attendeeContainer {
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(200px, 1fr)
-    ); /* Adjust width for smaller screens */
+          input[type="checkbox"] {
+            margin-right: 8px;
+            visibility: hidden; /* Hide checkbox */
+          }
+
+          /* Custom checkbox style */
+          .custom-checkbox {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #007bff;
+            border-radius: 4px;
+            margin-right: 8px;
+            position: relative;
+
+            /* Fill the box when checked */
+            input[type="checkbox"]:checked + .custom-checkbox::after {
+              content: "";
+              position: absolute;
+              top: 3px;
+              left: 3px;
+              width: 10px;
+              height: 10px;
+              background-color: #007bff;
+              border-radius: 3px;
+            }
+          }
+        }
+      }
+    }
   }
-}
 
-@media (max-width: 480px) {
-  .attendeeContainer {
-    grid-template-columns: 1fr; /* Stack the cards for very small screens */
+  .no-attendees {
+    font-size: 1rem;
+    color: #888;
+    text-align: center;
+    grid-column: span 3;
+  }
+
+  /* Media query for screens between 768px and 1024px (laptop screens) */
+  @media (max-width: 1024px) {
+    .attendee-container {
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      min-width: 260px;
+      max-width: 280px;
+    }
+  }
+
+  /* Media query for small screens, like tablets or phones */
+  @media (max-width: 768px) {
+    .attendee-container {
+      grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+      gap: 10px;
+    }
+
+    .card {
+      min-width: 100%;
+      max-width: 100%;
+    }
   }
 }
