@@ -398,39 +398,52 @@ function Attendee() {
   };
 
   return (
-    <div className="attendee-container">
-      {filteredAttendees.length > 0 ? (
-        filteredAttendees.map((attendee) => (
-          <div className="card-container" key={attendee.ClientID}>
-            <div className="card">
-              <h3 className="card-title">
-                {attendee.ClientFirstname} {attendee.ClientLastname}
-              </h3>
-              <p className="card-detail">Email: {attendee.ClientEmail}</p>
-              <p className="card-detail">Phone: {attendee.ClientPhone}</p>
-              <p className="card-detail">
-                Joined on:{" "}
-                {new Date(attendee.ClientDatejoined).toLocaleDateString()}
-              </p>
-              <p className="card-detail">Age: {attendee.ClientAge}</p>
-              <p className="card-detail">Gender: {attendee.ClientGenderName}</p>
+    <div>
+      {/* Title at the top of the page */}
+      <h2 className="page-title">
+        Here are your attendees for the class: {classId}
+      </h2>
 
-              {/* Button to toggle attendance */}
-              <button onClick={() => toggleAttendance(attendee.ClientID)}>
-                {attendance[attendee.ClientID] ? "Mark Absent" : "Mark Present"}
-              </button>
-              <p>Status:</p>
-              <p
-                className={attendance[attendee.ClientID] ? "present" : "absent"}
-              >
-                {attendance[attendee.ClientID] ? "Present" : "Absent"}
-              </p>
+      <div className="attendee-container">
+        {filteredAttendees.length > 0 ? (
+          filteredAttendees.map((attendee) => (
+            <div className="card-container" key={attendee.ClientID}>
+              <div className="card">
+                <h3 className="card-title">
+                  {attendee.ClientFirstname} {attendee.ClientLastname}
+                </h3>
+                <p className="card-detail">Email: {attendee.ClientEmail}</p>
+                <p className="card-detail">Phone: {attendee.ClientPhone}</p>
+                <p className="card-detail">
+                  Joined on:{" "}
+                  {new Date(attendee.ClientDatejoined).toLocaleDateString()}
+                </p>
+                <p className="card-detail">Age: {attendee.ClientAge}</p>
+                <p className="card-detail">
+                  Gender: {attendee.ClientGenderName}
+                </p>
+
+                {/* Button to toggle attendance */}
+                <button onClick={() => toggleAttendance(attendee.ClientID)}>
+                  {attendance[attendee.ClientID]
+                    ? "Mark Absent"
+                    : "Mark Present"}
+                </button>
+                <p>Status:</p>
+                <p
+                  className={
+                    attendance[attendee.ClientID] ? "present" : "absent"
+                  }
+                >
+                  {attendance[attendee.ClientID] ? "Present" : "Absent"}
+                </p>
+              </div>
             </div>
-          </div>
-        ))
-      ) : (
-        <p className="no-attendees">No attendees for this class yet.</p>
-      )}
+          ))
+        ) : (
+          <p className="no-attendees">No attendees for this class yet.</p>
+        )}
+      </div>
     </div>
   );
 }
