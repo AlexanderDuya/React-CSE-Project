@@ -38,7 +38,7 @@ function Footer() {
             For inquiries, email us at:{" "}
             <a href="mailto:support@pilatespro.com">support@pilatespro.com</a>
           </p>
-          <p>Call us: +44 012345678</p>
+          <p>Call us: <a href = "tel:+44 012345678">+44 012345678</a></p>
         </div>
       </div>
     </footer>

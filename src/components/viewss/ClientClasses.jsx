@@ -233,7 +233,7 @@ function ClientClasses() {
     }
   }
 
-  classes.sort((a, b) => a.classDay - b.classDay);
+  classes.sort((a, b) => a.ClassDay - b.ClassDay);
   //console.log(classes);
 
   return (

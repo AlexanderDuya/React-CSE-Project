@@ -100,4 +100,9 @@
     outline: none; // Remove the default focus outline
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); // Add focus shadow for accessibility
   }
+
+  &:hover {
+    background-color: lighten(#2c3e50, 15%);
+    cursor: pointer;
+  }
 }
