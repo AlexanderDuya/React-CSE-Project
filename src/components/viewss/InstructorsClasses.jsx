@@ -11,7 +11,6 @@ function InstructorsClasses() {
     {
       ClassTitle: "Foundations and Breathwork",
       classID: 1,
-      ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-03-01"),
       ClassTime: "18:57",
       ClassDuration: 90,
@@ -28,7 +27,6 @@ function InstructorsClasses() {
     {
       ClassTitle: "Core Strength Basics",
       classID: 2,
-      ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-03-08"),
       ClassTime: "18:30",
       ClassDuration: 60,
@@ -45,7 +43,6 @@ function InstructorsClasses() {
     {
       ClassTitle: "Flexibility and Spinal Mobility",
       classID: 3,
-      ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-03-15"),
       ClassTime: "18:30",
       ClassDuration: 60,
@@ -62,7 +59,6 @@ function InstructorsClasses() {
     {
       ClassTitle: "Lower Body Focus",
       classID: 4,
-      ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-03-22"),
       ClassTime: "18:30",
       ClassDuration: 60,
@@ -79,7 +75,6 @@ function InstructorsClasses() {
     {
       ClassTitle: "Upper Body and Posture",
       classID: 5,
-      ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-03-29"),
       ClassTime: "18:30",
       ClassDuration: 60,
@@ -96,7 +91,7 @@ function InstructorsClasses() {
     {
       ClassTitle: "Balance and Coordination",
       classID: 6,
-      ClassCourseName: "Spring into Spring 2025",
+
       ClassDay: new Date("2025-04-05"),
       ClassTime: "18:30",
       ClassDuration: 60,
@@ -113,7 +108,6 @@ function InstructorsClasses() {
     {
       ClassTitle: "Core Power and Endurance",
       classID: 7,
-      ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-04-12"),
       ClassTime: "18:30",
       ClassDuration: 60,
@@ -130,7 +124,6 @@ function InstructorsClasses() {
     {
       ClassTitle: "Functional Movement Integration",
       classID: 8,
-      ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-04-19"),
       ClassTime: "18:30",
       ClassDuration: 60,
@@ -147,7 +140,6 @@ function InstructorsClasses() {
     {
       ClassTitle: "Advanced Flow",
       classID: 9,
-      ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-04-26"),
       ClassTime: "18:30",
       ClassDuration: 60,
@@ -164,7 +156,6 @@ function InstructorsClasses() {
     {
       ClassTitle: "Relaxation and Recovery",
       classID: 10,
-      ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-05-03"),
       ClassTime: "18:00",
       ClassDuration: 60,
