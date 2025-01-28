@@ -387,6 +387,17 @@ function Attendee() {
     clientIdsForClass.includes(attendee.ClientID)
   );
 
+  // Local state to track attendance for each attendee (true for Present, false for Absent)
+  const [attendance, setAttendance] = useState({});
+
+  // Function to toggle the attendance status
+  const toggleAttendance = (clientId) => {
+    setAttendance((prevAttendance) => ({
+      ...prevAttendance,
+      [clientId]: !prevAttendance[clientId], // Toggle between present and absent
+    }));
+  };
+
   return (
     <div className="attendee-container">
       {filteredAttendees.length > 0 ? (
@@ -404,6 +415,14 @@ function Attendee() {
               </p>
               <p className="card-detail">Age: {attendee.ClientAge}</p>
               <p className="card-detail">Gender: {attendee.ClientGenderName}</p>
+
+              {/* Button to toggle attendance */}
+              <button onClick={() => toggleAttendance(attendee.ClientID)}>
+                {attendance[attendee.ClientID] ? "Mark Absent" : "Mark Present"}
+              </button>
+              <p>
+                Status: {attendance[attendee.ClientID] ? "Present" : "Absent"}
+              </p>
             </div>
           </div>
         ))
