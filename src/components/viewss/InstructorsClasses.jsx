@@ -10,7 +10,7 @@ function InstructorsClasses() {
   const classes = [
     {
       ClassTitle: "Foundations and Breathwork",
-      ClassCourseID: 1,
+      classID: 1,
       ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-03-01"),
       ClassTime: "18:57",
@@ -27,7 +27,7 @@ function InstructorsClasses() {
     },
     {
       ClassTitle: "Core Strength Basics",
-      ClassCourseID: 2,
+      classID: 2,
       ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-03-08"),
       ClassTime: "18:30",
@@ -44,7 +44,7 @@ function InstructorsClasses() {
     },
     {
       ClassTitle: "Flexibility and Spinal Mobility",
-      ClassCourseID: 3,
+      classID: 3,
       ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-03-15"),
       ClassTime: "18:30",
@@ -61,7 +61,7 @@ function InstructorsClasses() {
     },
     {
       ClassTitle: "Lower Body Focus",
-      ClassCourseID: 4,
+      classID: 4,
       ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-03-22"),
       ClassTime: "18:30",
@@ -78,7 +78,7 @@ function InstructorsClasses() {
     },
     {
       ClassTitle: "Upper Body and Posture",
-      ClassCourseID: 5,
+      classID: 5,
       ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-03-29"),
       ClassTime: "18:30",
@@ -95,7 +95,7 @@ function InstructorsClasses() {
     },
     {
       ClassTitle: "Balance and Coordination",
-      ClassCourseID: 6,
+      classID: 6,
       ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-04-05"),
       ClassTime: "18:30",
@@ -112,7 +112,7 @@ function InstructorsClasses() {
     },
     {
       ClassTitle: "Core Power and Endurance",
-      ClassCourseID: 7,
+      classID: 7,
       ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-04-12"),
       ClassTime: "18:30",
@@ -129,7 +129,7 @@ function InstructorsClasses() {
     },
     {
       ClassTitle: "Functional Movement Integration",
-      ClassCourseID: 8,
+      classID: 8,
       ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-04-19"),
       ClassTime: "18:30",
@@ -146,7 +146,7 @@ function InstructorsClasses() {
     },
     {
       ClassTitle: "Advanced Flow",
-      ClassCourseID: 9,
+      classID: 9,
       ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-04-26"),
       ClassTime: "18:30",
@@ -163,7 +163,7 @@ function InstructorsClasses() {
     },
     {
       ClassTitle: "Relaxation and Recovery",
-      ClassCourseID: 10,
+      classID: 10,
       ClassCourseName: "Spring into Spring 2025",
       ClassDay: new Date("2025-05-03"),
       ClassTime: "18:00",
@@ -230,7 +230,7 @@ function InstructorsClasses() {
             const value = getEndTime(hour, min, cls.ClassDuration);
 
             return (
-              <div className="classesCard1" key={cls.ClassCourseID}>
+              <div className="classesCard1" key={cls.classID}>
                 <div className="card1">
                   <div className="leftCard1">
                     <img src={cls.ClassImageURL} alt={cls.ClassTitle} />
@@ -247,7 +247,7 @@ function InstructorsClasses() {
                       <p className="beforeExtra">
                         with {cls.ClassInstructorName}
                       </p>
-                      {selectedClass === cls.ClassCourseID ? (
+                      {selectedClass === cls.classID ? (
                         <div>
                           <div className="extraDiv">
                             <hr />
@@ -259,7 +259,7 @@ function InstructorsClasses() {
                         </div>
                       ) : null}
                       <NavLink
-                        to={`/Attendee?classId=${cls.ClassCourseID}`}
+                        to={`/Attendee?classId=${cls.classID}`}
                         className="view-attendees-link"
                       >
                         View Attendees
