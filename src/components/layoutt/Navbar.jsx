@@ -8,6 +8,9 @@ function Navbar() {
         <NavLink to="/">Home</NavLink>
       </div>
       <div className="navItem">
+        <NavLink to="/ProviderClasses">Provider View</NavLink>
+      </div>
+      <div className="navItem">
         <NavLink to="/ClientClasses">Client View</NavLink>
       </div>
       <div className="navItem">

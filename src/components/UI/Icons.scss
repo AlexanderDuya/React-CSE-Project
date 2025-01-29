@@ -1,0 +1,30 @@
+// -----------------------------------------------
+// Styling ///////////////////////////////////////
+// -----------------------------------------------
+
+div.Icon {
+  /* Appearance */
+  width: auto;
+  height: 100%;
+
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Styling of Icons8 acknowledgement component */
+
+p.IconAcknowledge {
+  font-size: 80%;
+
+  & > a {
+    color: #004180;
+    text-decoration: none;
+  }
+}

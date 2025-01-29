@@ -1,0 +1,50 @@
+/* -------------------------------------------- */
+/* Styling //////////////////////////////////// */
+/* -------------------------------------------- */
+
+div.ActionTray {
+  /* Appearance */
+
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+button.Action {
+  /* Appearance */
+  height: 36px;
+  padding: 5px;
+  background: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+
+  /* Layout */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  p {
+    flex: 1;
+    min-width: 50px;
+    text-align: center;
+    margin-right: 5px;
+    color: rgba(0, 0, 0, 0.3);
+  }
+
+  img {
+    filter: opacity(0.1);
+  }
+
+  &:hover {
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    p {
+      color: rgba(0, 0, 0, 0.8);
+    }
+    img {
+      filter: opacity(0.8);
+    }
+  }
+}
