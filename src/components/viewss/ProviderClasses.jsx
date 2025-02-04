@@ -4,10 +4,12 @@ import "../viewss/ProviderClasses.scss";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Actions from "../UI/Actions";
+import { storedClasses } from "../viewss/storedClasses.jsx";
 
 function ProviderClasses() {
   const [selectedClass] = useState();
 
+  /*
   const classes = [
     {
       ClassTitle: "Foundations and Breathwork",
@@ -171,6 +173,9 @@ function ProviderClasses() {
         "https://img.freepik.com/free-photo/group-sporty-people-dead-body-exercise_1163-4995.jpg?t=st=1737147244~exp=1737150844~hmac=d6134f639f6ecab03b229d9ada9b26f4fa7a816c41fdb522954012c7f600c63e&w=1480",
     },
   ];
+  */
+
+  const classes = storedClasses().classes;
 
   const getEndTime = (hours, mins, duration) => {
     let incHour = 0;
