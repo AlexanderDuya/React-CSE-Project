@@ -57,7 +57,7 @@ function AddClassForm() {
   };
 
   const handleSubmit = () => {
-    try {
+    if (singleClass != initialClass) {
       const updatedClass = {
         ...singleClass,
         ClassDay:
@@ -71,8 +71,6 @@ function AddClassForm() {
       navigate("/ProviderClasses");
 
       console.log(`Class=[${JSON.stringify(updatedClass)}]`);
-    } catch (error) {
-      console.error("The error is ", error);
     }
   };
 

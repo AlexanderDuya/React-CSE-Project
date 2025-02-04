@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import './Icons.scss';
+import PropTypes from "prop-types";
+import "./Icons.scss";
 
 export default function Icon({ children }) {
   return <div className="Icon">{children}</div>;
@@ -12,7 +12,10 @@ Icon.propTypes = {
 function Collapse() {
   return (
     <Icon className="IconCollapse">
-      <img src="https://img.icons8.com/material-sharp/24/000000/collapse-arrow.png" alt="Collapse icon" />
+      <img
+        src="https://img.icons8.com/material-sharp/24/000000/collapse-arrow.png"
+        alt="Collapse icon"
+      />
     </Icon>
   );
 }
@@ -20,7 +23,10 @@ function Collapse() {
 function Cross() {
   return (
     <Icon className="IconCross">
-      <img src="https://img.icons8.com/material-outlined/24/undefined/delete-sign.png" alt="Cross icon" />
+      <img
+        src="https://img.icons8.com/material-outlined/24/FF0000/delete-sign.png"
+        alt="Cross icon"
+      />
     </Icon>
   );
 }
@@ -28,7 +34,10 @@ function Cross() {
 function Database() {
   return (
     <Icon className="IconDatabase">
-      <img src="https://img.icons8.com/ios-filled/50/000000/database.png" alt="Database icon" />
+      <img
+        src="https://img.icons8.com/ios-filled/50/000000/database.png"
+        alt="Database icon"
+      />
     </Icon>
   );
 }
@@ -36,7 +45,10 @@ function Database() {
 function Expand() {
   return (
     <Icon className="IconExpand">
-      <img src="https://img.icons8.com/material-sharp/24/000000/expand-arrow.png" alt="Expand icon" />
+      <img
+        src="https://img.icons8.com/material-sharp/24/000000/expand-arrow.png"
+        alt="Expand icon"
+      />
     </Icon>
   );
 }
@@ -44,7 +56,10 @@ function Expand() {
 function Group() {
   return (
     <Icon className="Icon IconGroup">
-      <img src="https://img.icons8.com/ios-filled/50/undefined/conference-call.png" alt="Group icon" />
+      <img
+        src="https://img.icons8.com/ios-filled/50/undefined/conference-call.png"
+        alt="Group icon"
+      />
     </Icon>
   );
 }
@@ -52,7 +67,10 @@ function Group() {
 function List() {
   return (
     <Icon className="IconList">
-      <img src="https://img.icons8.com/material-sharp/24/undefined/list.png" alt="List icon" />
+      <img
+        src="https://img.icons8.com/material-sharp/24/undefined/list.png"
+        alt="List icon"
+      />
     </Icon>
   );
 }
@@ -60,7 +78,10 @@ function List() {
 function Pen() {
   return (
     <Icon className="IconPen">
-      <img src="https://img.icons8.com/ios-glyphs/30/undefined/edit--v1.png" alt="Pen icon" />
+      <img
+        src="https://img.icons8.com/ios-glyphs/30/undefined/edit--v1.png"
+        alt="Pen icon"
+      />
     </Icon>
   );
 }
@@ -79,7 +100,10 @@ function Plus() {
 function RedCross() {
   return (
     <Icon className="IconRedCross">
-      <img src="https://img.icons8.com/color/48/undefined/delete-sign--v1.png" alt="Red cross icon" />
+      <img
+        src="https://img.icons8.com/color/48/undefined/delete-sign--v1.png"
+        alt="Red cross icon"
+      />
     </Icon>
   );
 }
@@ -87,7 +111,10 @@ function RedCross() {
 function RedHeart() {
   return (
     <Icon className="IconRedHeart">
-      <img src="https://img.icons8.com/emoji/48/undefined/red-heart.png" alt="Red heart icon" />
+      <img
+        src="https://img.icons8.com/emoji/48/undefined/red-heart.png"
+        alt="Red heart icon"
+      />
     </Icon>
   );
 }
@@ -95,7 +122,10 @@ function RedHeart() {
 function Tick() {
   return (
     <Icon className="IconTick">
-      <img src="https://img.icons8.com/material-outlined/24/undefined/checkmark--v1.png" alt="Tick icon" />
+      <img
+        src="https://img.icons8.com/material-outlined/24/32CD32/checkmark--v1.png"
+        alt="Tick icon"
+      />
     </Icon>
   );
 }
@@ -103,7 +133,10 @@ function Tick() {
 function Trash() {
   return (
     <Icon className="IconTrash">
-      <img src="https://img.icons8.com/ios-glyphs/30/undefined/filled-trash.png" alt="Trash icon" />
+      <img
+        src="https://img.icons8.com/ios-glyphs/30/undefined/filled-trash.png"
+        alt="Trash icon"
+      />
     </Icon>
   );
 }

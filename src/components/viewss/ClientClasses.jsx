@@ -181,49 +181,17 @@ function ClientClasses() {
   const classes = storedClasses().classes;
 
   const getEndTime = (hours, mins, duration) => {
-    let incHour = 0;
+    let totalMins = hours * 60 + mins + duration; // Convert everything to minutes
+    let endHours = Math.floor(totalMins / 60); // Get the new hours
+    let endMins = totalMins % 60; // Get remaining minutes
 
-    let addhour = Math.floor(duration / 60);
+    // Ensure hours wrap correctly (e.g., in a 24-hour system)
+    endHours = endHours % 24;
 
-    hours = hours + addhour;
+    // Format minutes to always be two digits
+    let formattedMins = endMins < 10 ? "0" + endMins : endMins.toString();
 
-    let checkmins = mins + (duration - 60 * Math.floor(duration / 60));
-
-    //Check if we are adding time less than an hour
-    if (addhour == 0) {
-      addhour = 1;
-
-      checkmins = mins + duration;
-
-      mins = mins + duration;
-      //Check if time we add will go past 59
-      if (checkmins > 59) {
-        incHour = 1;
-        mins = checkmins - 60;
-      }
-    }
-    if (addhour > 0 && checkmins > 59) {
-      incHour = 1;
-      mins = checkmins - 60;
-    } else if (addhour > 0) {
-      mins = mins + (duration - addhour * 60);
-    }
-
-    hours = hours + incHour;
-
-    hours = hours.toString();
-
-    mins = mins.toString();
-
-    if (mins == 0) {
-      mins = "00";
-    } else if (mins > 0 && mins < 10) {
-      mins = "0" + mins;
-    }
-
-    const value = hours + ":" + mins;
-
-    return value;
+    return endHours + ":" + formattedMins;
   };
 
   const [selectedClass, setSelectedClass] = useState();

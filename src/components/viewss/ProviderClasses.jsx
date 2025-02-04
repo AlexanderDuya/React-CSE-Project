@@ -178,39 +178,17 @@ function ProviderClasses() {
   const classes = storedClasses().classes;
 
   const getEndTime = (hours, mins, duration) => {
-    let incHour = 0;
-    let addhour = Math.floor(duration / 60);
-    hours = hours + addhour;
-    let checkmins = mins + (duration - 60 * Math.floor(duration / 60));
+    let totalMins = hours * 60 + mins + duration; // Convert everything to minutes
+    let endHours = Math.floor(totalMins / 60); // Get the new hours
+    let endMins = totalMins % 60; // Get remaining minutes
 
-    if (addhour == 0) {
-      addhour = 1;
-      checkmins = mins + duration;
-      mins = mins + duration;
-      if (checkmins > 59) {
-        incHour = 1;
-        mins = checkmins - 60;
-      }
-    }
+    // Ensure hours wrap correctly (e.g., in a 24-hour system)
+    endHours = endHours % 24;
 
-    if (addhour > 0 && checkmins > 59) {
-      incHour = 1;
-      mins = checkmins - 60;
-    } else if (addhour > 0) {
-      mins = mins + (duration - addhour * 60);
-    }
+    // Format minutes to always be two digits
+    let formattedMins = endMins < 10 ? "0" + endMins : endMins.toString();
 
-    hours = hours + incHour;
-    hours = hours.toString();
-    mins = mins.toString();
-
-    if (mins == 0) {
-      mins = "00";
-    } else if (mins > 0 && mins < 10) {
-      mins = "0" + mins;
-    }
-
-    return hours + ":" + mins;
+    return endHours + ":" + formattedMins;
   };
 
   classes.sort((a, b) => a.ClassDay - b.ClassDay);
@@ -220,14 +198,12 @@ function ProviderClasses() {
       <div className="instructors-classes">
         <h1 id="firstTitle1">Hello Provider !</h1>
         <h2 id="secondTitle1">Upcoming Classes</h2>
-        <NavLink to="/AddClassForm">
-          <Actions.Tray>
-            {" "}
-            <Actions.Add showText buttonText="Add new class">
-              {" "}
-            </Actions.Add>{" "}
-          </Actions.Tray>
+        <NavLink to="/AddClassForm" className="navLinkButton">
+          Add new class
         </NavLink>
+        {storedClasses().submitted && (
+          <h1 className="success">Successfully submitted</h1>
+        )}
         <div className="cardContainer1">
           {classes.map((cls) => {
             let hour = parseInt(cls.ClassTime.substring(0, 2));
@@ -252,17 +228,7 @@ function ProviderClasses() {
                       <p className="beforeExtra">
                         with {cls.ClassInstructorName}
                       </p>
-                      {selectedClass === cls.classID ? (
-                        <div>
-                          <div className="extraDiv">
-                            <hr />
-                            <p className="extra">at {cls.ClassLocationName}</p>
-                            <p className="lastExtra">
-                              Max Capacity is {cls.ClassCapacity} People
-                            </p>
-                          </div>
-                        </div>
-                      ) : null}
+
                       <NavLink
                         to={`/Attendee?classId=${cls.ClassID}`}
                         className="view-attendees-link"
