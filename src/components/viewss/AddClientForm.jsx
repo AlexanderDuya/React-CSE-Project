@@ -250,10 +250,32 @@ function AddClientForm() {
     gender: "Male",
   });
 
+  const [errors, setErrors] = useState({});
   const [formVisible, setFormVisible] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
   //Handlers------------------------------------------------------------------------------
+
+  const validate = () => {
+    let newErrors = {};
+    if (clientFormData.firstName.trim().length < 2) {
+      newErrors.firstName = "Invalid firstname";
+    }
+    if (clientFormData.lastName.trim().length < 2) {
+      newErrors.lastName = "Invalid lastname";
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clientFormData.email)) {
+      newErrors.email = "Invalid email";
+    }
+    if (!/^\d{11}$/.test(clientFormData.phone)) {
+      newErrors.phone = "Invalid phone number";
+    }
+    const age = parseInt(clientFormData.age);
+    if (isNaN(age) || age < 18 || age > 99) {
+      newErrors.age = "Invalid age";
+    }
+    return newErrors;
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -261,6 +283,14 @@ function AddClientForm() {
   };
 
   const handleSubmit = (event) => {
+    event.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    setErrors({});
+
     // Generate a new ClientID
     const newClientID = clients.length + 1;
 
@@ -314,6 +344,7 @@ function AddClientForm() {
               placeholder="First Name"
               className="input-field"
             />
+            {errors.firstName && <p className="error">{errors.firstName}</p>}
           </div>
           <div className="form-group">
             <input
@@ -324,6 +355,7 @@ function AddClientForm() {
               placeholder="Last Name"
               className="input-field"
             />
+            {errors.lastName && <p className="error">{errors.lastName}</p>}
           </div>
           <div className="form-group">
             <input
@@ -334,6 +366,7 @@ function AddClientForm() {
               placeholder="Email"
               className="input-field"
             />
+            {errors.email && <p className="error">{errors.email}</p>}
           </div>
           <div className="form-group">
             <input
@@ -344,6 +377,7 @@ function AddClientForm() {
               placeholder="Phone"
               className="input-field"
             />
+            {errors.phone && <p className="error">{errors.phone}</p>}
           </div>
           <div className="form-group">
             <input
@@ -354,6 +388,7 @@ function AddClientForm() {
               placeholder="Age"
               className="input-field"
             />
+            {errors.age && <p className="error">{errors.age}</p>}
           </div>
           <div className="form-group">
             <select
@@ -364,6 +399,7 @@ function AddClientForm() {
             >
               <option value="Male">Male</option>
               <option value="Female">Female</option>
+              <option value="Other">Other</option>
             </select>
           </div>
 
