@@ -235,7 +235,7 @@ function ProviderClasses() {
             const value = getEndTime(hour, min, cls.ClassDuration);
 
             return (
-              <div className="classesCard1" key={cls.classID}>
+              <div className="classesCard1" key={cls.ClassID}>
                 <div className="card1">
                   <div className="leftCard1">
                     <img src={cls.ClassImageURL} alt={cls.ClassTitle} />
@@ -264,7 +264,7 @@ function ProviderClasses() {
                         </div>
                       ) : null}
                       <NavLink
-                        to={`/Attendee?classId=${cls.classID}`}
+                        to={`/Attendee?classId=${cls.ClassID}`}
                         className="view-attendees-link"
                       >
                         View Attendees
