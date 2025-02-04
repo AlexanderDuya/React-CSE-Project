@@ -7,6 +7,7 @@ import ProviderClasses from "./components/viewss/ProviderClasses.jsx";
 import PageNotFound from "./components/viewss/404.jsx";
 import InstructorClasses from "./components/viewss/InstructorsClasses.jsx";
 import AddClassForm from "./components/viewss/AddClassForm.jsx";
+import AddClientForm from "./components/viewss/AddClientForm.jsx";
 
 function App() {
   const loggedInUser = "Alexander Duya";
@@ -20,6 +21,8 @@ function App() {
           <Route path="/ProviderClasses" element={<ProviderClasses />} />
 
           <Route path="/AddClassForm" element={<AddClassForm />} />
+
+          <Route path="/AddClientForm" element={<AddClientForm />} />
 
           <Route path="/ClientClasses" element={<ClientClasses />} />
 

@@ -1,5 +1,6 @@
 import "../viewss/ClientClasses.scss";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 function ClientClasses() {
   const classes = [
@@ -240,6 +241,11 @@ function ClientClasses() {
     <>
       <h1 id="firstTitle1">Hello User!</h1>
       <h2 id="secondTitle1">Upcoming classes</h2>
+
+      {/* Add Client Button */}
+      <NavLink to="/AddClientForm" className="navLinkButton">
+        Create an Account
+      </NavLink>
       <div className="cardContainer1">
         {classes.map((class1) => {
           let hour = parseInt(class1.ClassTime.substring(0, 2));
@@ -279,14 +285,14 @@ function ClientClasses() {
                         <button
                           onClick={() => handleClassClick(class1.ClassCourseID)}
                         >
-                          -
+                          Close Information
                         </button>
                       </div>
                     ) : (
                       <button
                         onClick={() => handleClassClick(class1.ClassCourseID)}
                       >
-                        +
+                        More Information
                       </button>
                     )}
                   </div>

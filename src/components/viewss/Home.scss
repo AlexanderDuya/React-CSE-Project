@@ -1,0 +1,40 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.home-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.home-description {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.views-list {
+  list-style-type: disc;
+  padding-left: 20px;
+  text-align: left;
+  font-size: 18px;
+  color: #444;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.views-list li {
+  margin: 10px 0;
+}
+
+.views-list strong {
+  color: #333;
+  font-weight: bold;
+}

@@ -103,15 +103,16 @@ div.cardContainer1 {
       }
 
       button {
-        height: 45px;
-        width: 45px;
-        border-radius: 50%;
-
-        font-weight: bold;
-        font-size: 14px;
-
-        background-color: #2c3e50;
-        color: white;
+        display: inline-block;
+        background-color: #2c3e50; // Button background color
+        color: white; // Button text color
+        padding: 15px 15px; // Button padding
+        border-radius: 5px; // Rounded corners
+        text-align: center;
+        text-decoration: none; // Remove underline
+        font-size: 16px;
+        font-weight: 600; // Slightly bold text
+        cursor: pointer;
         transition: background-color 0.3s ease, transform 0.2s ease; // Smooth transition for hover effects
 
         &:hover {
@@ -134,6 +135,31 @@ div.cardContainer1 {
     }
   }
 }
+
+.navLinkButton {
+  display: block; /* Make it a block element */
+  background-color: #2c3e50; /* Primary blue color for the button */
+  color: white;
+  padding: 12px 24px; /* Padding for the button */
+  font-size: 16px; /* Font size */
+  font-weight: bold; /* Bold text */
+  border-radius: 8px; /* Rounded corners */
+  text-align: center; /* Center the text */
+  text-decoration: none; /* Remove underline */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+  cursor: pointer;
+  width: 220px; /* Set a fixed width for the button */
+  margin: 20px auto; /* Add margin on top, bottom, and center horizontally */
+}
+
+.navLinkButton:hover {
+  background-color: lighten(#2c3e50, 15%); /* Darker blue color when hovering */
+}
+
+.navLinkButton:focus {
+  outline: none; /* Remove outline when focused */
+}
+
 @media only screen and (max-width: 783px) {
   div.cardContainer1 {
     div.classesCard1 {
