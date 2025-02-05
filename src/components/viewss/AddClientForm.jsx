@@ -246,7 +246,7 @@ function AddClientForm() {
     lastName: "",
     email: "",
     phone: "",
-    age: "",
+    dob: "",
     gender: "Male",
   });
 
@@ -254,6 +254,7 @@ function AddClientForm() {
   const [formVisible, setFormVisible] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
+
   //Handlers------------------------------------------------------------------------------
 
   const validate = () => {
@@ -270,11 +271,31 @@ function AddClientForm() {
     if (!/^\d{11}$/.test(clientFormData.phone)) {
       newErrors.phone = "Invalid phone number";
     }
-    const age = parseInt(clientFormData.age);
-    if (isNaN(age) || age < 18 || age > 99) {
-      newErrors.age = "Invalid age";
+    if (!clientFormData.dob) {
+      newErrors.dob = "Date of birth is required";
+    } else {
+      const age = calculateAge(clientFormData.dob);
+      if (age < 18) {
+        newErrors.dob = "You must be at least 18 years old";
+      }
     }
     return newErrors;
+  };
+
+  const calculateAge = (dob) => {
+    const birthDate = new Date(dob);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    return age;
   };
 
   const handleChange = (event) => {
@@ -290,6 +311,8 @@ function AddClientForm() {
       return;
     }
     setErrors({});
+
+    const calculatedAge = calculateAge(clientFormData.dob);
 
     // Generate a new ClientID
     const newClientID = clients.length + 1;
@@ -381,14 +404,14 @@ function AddClientForm() {
           </div>
           <div className="form-group">
             <input
-              type="number"
-              name="age"
-              value={clientFormData.age}
+              type="date"
+              name="dob"
+              value={clientFormData.dob}
               onChange={handleChange}
-              placeholder="Age"
+              placeholder="Date of Birth"
               className="input-field"
             />
-            {errors.age && <p className="error">{errors.age}</p>}
+            {errors.dob && <p className="error">{errors.dob}</p>}
           </div>
           <div className="form-group">
             <select
