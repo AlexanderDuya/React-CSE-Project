@@ -325,7 +325,7 @@ function AddClientForm() {
       ClientEmail: clientFormData.email,
       ClientPhone: clientFormData.phone,
       ClientDatejoined: new Date(),
-      ClientAge: parseInt(clientFormData.age),
+      ClientAge: calculatedAge,
       ClientGenderName: clientFormData.gender,
     };
 
