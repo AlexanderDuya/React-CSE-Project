@@ -1,0 +1,33 @@
+div.ClassForm {
+  width: 50%;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #f4f4f9;
+
+  div.FormField {
+    width: 100%;
+    label,
+    input {
+      display: block;
+      width: 100%;
+    }
+  }
+  div.buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}

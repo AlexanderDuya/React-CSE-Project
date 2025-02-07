@@ -1,14 +1,14 @@
 import "../viewss/AddClassForm.scss";
-import Actions from "../UI/Actions";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { storedClasses, changeSubmit } from "../viewss/storedClasses.jsx";
+import { FormField, FormDisplay } from "../UI/Form.jsx";
 
 const initialClass = {
   ClassTitle: "",
   ClassCourseName: "",
   ClassDay: null,
-  ClassTime: "18:00",
+  ClassTime: "",
   ClassDuration: 0,
   ClassLocationName: "",
   ClassCapacity: 0,
@@ -18,20 +18,19 @@ const initialClass = {
 };
 
 function AddClassForm() {
-  const navigate = useNavigate();
-  const [singleClass, setSingleClass] = useState(initialClass);
+  // Initialisation ----------------------------------------------
 
   const conformance = {
     html2js: {
-      ClassTitle: (value) => (value === "" ? null : value),
+      ClassTitle: (value) => (value === "" ? "" : value),
       ClassDay: (value) => (value === "" ? null : new Date(value)),
-      ClassTime: (value) => (value === "" ? null : value),
-      ClassDuration: (value) => (value === "" ? null : parseInt(value)),
-      ClassLocationName: (value) => (value === "" ? null : value),
-      ClassCapacity: (value) => (value === 0 ? null : parseInt(value)),
-      ClassInstructorName: (value) => (value === "" ? null : value),
-      ClassProviderName: (value) => (value === "" ? null : value),
-      ClassImageURL: (value) => (value === "" ? null : value),
+      ClassTime: (value) => (value === "" ? "" : value),
+      ClassDuration: (value) => (value === null ? 0 : parseInt(value) || 0),
+      ClassLocationName: (value) => (value === "" ? "" : value),
+      ClassCapacity: (value) => (value === "" ? 0 : parseInt(value) || 0),
+      ClassInstructorName: (value) => (value === "" ? "" : value),
+      ClassProviderName: (value) => (value === "" ? "" : value),
+      ClassImageURL: (value) => (value === "" ? "" : value),
     },
 
     js2html: {
@@ -52,12 +51,21 @@ function AddClassForm() {
     },
   };
 
+  // State --------------------------------------------------
+
+  const navigate = useNavigate();
+  const [singleClass, setSingleClass] = useState(initialClass);
+  const [valid, setValid] = useState(null);
+  const [errors, setErrors] = useState({});
+
+  // Handlers --------------------------------------------------
+
   const handleCancel = () => {
     navigate("/ProviderClasses");
   };
 
   const handleSubmit = () => {
-    if (singleClass != initialClass) {
+    if (validate(singleClass)) {
       const updatedClass = {
         ...singleClass,
         ClassDay:
@@ -82,114 +90,159 @@ function AddClassForm() {
     });
   };
 
+  const validate = (newClass) => {
+    let isValid = true;
+    let errors = {};
+
+    if (newClass.ClassTitle === initialClass.ClassTitle) {
+      errors.ClassTitle = "Title is not complete";
+      isValid = false;
+    }
+    if (newClass.ClassDay === initialClass.ClassDay) {
+      errors.ClassDay = "ClassDay is not complete";
+      isValid = false;
+    }
+    if (newClass.ClassTime === initialClass.ClassTime) {
+      errors.ClassTime = "ClassTime is not complete";
+      isValid = false;
+    }
+    if (!newClass.ClassDuration || newClass.ClassDuration <= 0) {
+      errors.ClassDuration = "ClassDuration must be greater than 0";
+      isValid = false;
+    }
+    if (newClass.ClassLocationName === initialClass.ClassLocationName) {
+      errors.ClassLocationName = "ClassLocationName is not complete";
+      isValid = false;
+    }
+    if (!newClass.ClassCapacity || newClass.ClassCapacity <= 0) {
+      errors.ClassCapacity = "ClassCapacity must be greater than 0";
+      isValid = false;
+    }
+    if (newClass.ClassInstructorName === initialClass.ClassInstructorName) {
+      errors.ClassInstructorName = "ClassInstructorName is not complete";
+      isValid = false;
+    }
+    if (newClass.ClassProviderName === initialClass.ClassProviderName) {
+      errors.ClassProviderName = "ClassProviderName is not complete";
+      isValid = false;
+    }
+    if (newClass.ClassImageURL === initialClass.ClassImageURL) {
+      errors.ClassImageURL = "ClassImageURL is not complete";
+      isValid = false;
+    }
+
+    setErrors(errors);
+    setValid(isValid);
+    return isValid;
+  };
+
+  // View -------------------------------------------------------
+
   return (
-    <div className="ClassForm">
-      <div className="FormField">
-        <label>
-          Class Title
-          <input
-            type="text"
-            name="ClassTitle"
-            value={conformance.js2html.ClassTitle(singleClass.ClassTitle)}
-            onChange={handleChange}
-          />
-        </label>
+    <FormDisplay handleSubmit={handleSubmit} handleCancel={handleCancel}>
+      <FormField
+        label="Class Name"
+        type="text"
+        name="ClassTitle"
+        value={conformance.js2html.ClassTitle(singleClass.ClassTitle)}
+        onChange={handleChange}
+      ></FormField>
+      {errors.ClassTitle != null && (
+        <p className="unsuccess">{errors.ClassTitle}</p>
+      )}
 
-        <label>
-          Class Day
-          <input
-            type="date"
-            name="ClassDay"
-            value={conformance.js2html.ClassDay(singleClass.ClassDay)}
-            onChange={handleChange}
-          />
-        </label>
+      <FormField
+        label="Class Day"
+        type="date"
+        name="ClassDay"
+        value={conformance.js2html.ClassDay(singleClass.ClassDay)}
+        onChange={handleChange}
+      ></FormField>
+      {errors.ClassDay != null && (
+        <p className="unsuccess">{errors.ClassDay}</p>
+      )}
 
-        <label>
-          Class Time
-          <input
-            type="time"
-            name="ClassTime"
-            value={conformance.js2html.ClassTime(singleClass.ClassTime)}
-            onChange={handleChange}
-          />
-        </label>
+      <FormField
+        label="Class Time"
+        type="time"
+        name="ClassTime"
+        value={conformance.js2html.ClassTime(singleClass.ClassTime)}
+        onChange={handleChange}
+      ></FormField>
+      {errors.ClassTime != null && (
+        <p className="unsuccess">{errors.ClassTime}</p>
+      )}
 
-        <label>
-          Duration (mins)
-          <input
-            type="number"
-            name="ClassDuration"
-            value={conformance.js2html.ClassDuration(singleClass.ClassDuration)}
-            onChange={handleChange}
-          />
-        </label>
+      <FormField
+        label="Class Duration"
+        type="text"
+        name="ClassDuration"
+        value={conformance.js2html.ClassDuration(singleClass.ClassDuration)}
+        onChange={handleChange}
+      ></FormField>
+      {errors.ClassDuration != null && (
+        <p className="unsuccess">{errors.ClassDuration}</p>
+      )}
 
-        <label>
-          Location Name
-          <input
-            type="text"
-            name="ClassLocationName"
-            value={conformance.js2html.ClassLocationName(
-              singleClass.ClassLocationName
-            )}
-            onChange={handleChange}
-          />
-        </label>
+      <FormField
+        label="Location Name"
+        type="text"
+        name="ClassLocationName"
+        value={conformance.js2html.ClassLocationName(
+          singleClass.ClassLocationName
+        )}
+        onChange={handleChange}
+      ></FormField>
+      {errors.ClassLocationName != null && (
+        <p className="unsuccess">{errors.ClassLocationName}</p>
+      )}
 
-        <label>
-          Capacity
-          <input
-            type="number"
-            name="ClassCapacity"
-            value={conformance.js2html.ClassCapacity(singleClass.ClassCapacity)}
-            onChange={handleChange}
-          />
-        </label>
+      <FormField
+        label="Capacity"
+        type="text"
+        name="ClassCapacity"
+        value={conformance.js2html.ClassCapacity(singleClass.ClassCapacity)}
+        onChange={handleChange}
+      ></FormField>
+      {errors.ClassCapacity != null && (
+        <p className="unsuccess">{errors.ClassCapacity}</p>
+      )}
 
-        <label>
-          Instructor Name
-          <input
-            type="text"
-            name="ClassInstructorName"
-            value={singleClass.ClassInstructorName}
-            onChange={handleChange}
-          />
-        </label>
+      <FormField
+        label="Instructor Name"
+        type="text"
+        name="ClassInstructorName"
+        value={singleClass.ClassInstructorName}
+        onChange={handleChange}
+      ></FormField>
+      {errors.ClassInstructorName != null && (
+        <p className="unsuccess">{errors.ClassInstructorName}</p>
+      )}
 
-        <label>
-          Provider Name
-          <input
-            type="text"
-            name="ClassProviderName"
-            value={conformance.js2html.ClassProviderName(
-              singleClass.ClassProviderName
-            )}
-            onChange={handleChange}
-          />
-        </label>
+      <FormField
+        label="Provider Name"
+        type="text"
+        name="ClassProviderName"
+        value={conformance.js2html.ClassProviderName(
+          singleClass.ClassProviderName
+        )}
+        onChange={handleChange}
+      ></FormField>
+      {errors.ClassProviderName != null && (
+        <p className="unsuccess">{errors.ClassProviderName}</p>
+      )}
 
-        <label>
-          Class Image URL
-          <input
-            type="text"
-            name="ClassImageURL"
-            value={conformance.js2html.ClassImageURL(singleClass.ClassImageURL)}
-            onChange={handleChange}
-          />
-        </label>
-      </div>
-
-      <div className="buttons">
-        <Actions.Tray>
-          <Actions.Submit showText onClick={handleSubmit} />
-        </Actions.Tray>
-
-        <Actions.Tray>
-          <Actions.Cancel showText buttonText="Cancel" onClick={handleCancel} />
-        </Actions.Tray>
-      </div>
-    </div>
+      <FormField
+        label="Class Image URL"
+        type="text"
+        name="ClassImageURL"
+        value={conformance.js2html.ClassImageURL(singleClass.ClassImageURL)}
+        onChange={handleChange}
+      ></FormField>
+      {errors.ClassImageURL != null && (
+        <p className="unsuccess">{errors.ClassImageURL}</p>
+      )}
+    </FormDisplay>
   );
 }
 
