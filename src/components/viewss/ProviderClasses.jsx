@@ -1,13 +1,32 @@
 import "../viewss/ClientClasses.scss";
 import "../layoutt/Navbar.scss";
 import "../viewss/ProviderClasses.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Actions from "../UI/Actions";
 import { storedClasses } from "../viewss/storedClasses.jsx";
 
 function ProviderClasses() {
+  //Initialization -----------------------------------------------
+
+  const apiURL = "https://softwarehub.uk/unibase/events/api";
+  const myClassesEndPoint = `${apiURL}/classes`;
+
+  // State--------------------------------------------------------
+
   const [selectedClass] = useState();
+
+  const [classes, setClasses] = useState(null);
+
+  const apiGet = async (endpoint) => {
+    const response = await fetch(endpoint);
+    const result = await response.json();
+    setClasses(result);
+  };
+
+  useEffect(() => {
+    apiGet(myClassesEndPoint);
+  }, [myClassesEndPoint]);
 
   /*
   const classes = [
@@ -175,7 +194,7 @@ function ProviderClasses() {
   ];
   */
 
-  const classes = storedClasses().classes;
+  //const classes = storedClasses().classes;
 
   const getEndTime = (hours, mins, duration) => {
     let totalMins = hours * 60 + mins + duration; // Convert everything to minutes
@@ -191,57 +210,65 @@ function ProviderClasses() {
     return endHours + ":" + formattedMins;
   };
 
-  classes.sort((a, b) => a.ClassDay - b.ClassDay);
+  //classes.sort((a, b) => a.ClassDay - b.ClassDay);
+
+  // View ------------------------------------------------------
 
   return (
     <>
       <div className="instructors-classes">
         <h1 id="firstTitle1">Hello Provider !</h1>
         <h2 id="secondTitle1">Upcoming Classes</h2>
-        <NavLink to="/AddClassForm" className="navLinkButton">
-          Add new class
-        </NavLink>
-        {storedClasses().submitted && (
-          <h1 className="success">Successfully submitted</h1>
-        )}
-        <div className="cardContainer1">
-          {classes.map((cls) => {
-            let hour = parseInt(cls.ClassTime.substring(0, 2));
-            let min = parseInt(cls.ClassTime.substring(3, 6));
-            const value = getEndTime(hour, min, cls.ClassDuration);
+        {!classes ? (
+          <p>Loading records</p>
+        ) : (
+          <>
+            <NavLink to="/AddClassForm" className="navLinkButton">
+              Add new class
+            </NavLink>
+            {storedClasses().submitted && (
+              <h1 className="success">Successfully submitted</h1>
+            )}
+            <div className="cardContainer1">
+              {classes.map((cls) => {
+                let hour = parseInt(cls.ClassTime.substring(0, 2));
+                let min = parseInt(cls.ClassTime.substring(3, 6));
+                const value = getEndTime(hour, min, cls.ClassDuration);
 
-            return (
-              <div className="classesCard1" key={cls.ClassID}>
-                <div className="card1">
-                  <div className="leftCard1">
-                    <img src={cls.ClassImageURL} alt={cls.ClassTitle} />
-                  </div>
-                  <div className="rightCard1">
-                    <h1 className="title">{cls.ClassTitle}</h1>
-                    <div className="text1">
-                      <p>
-                        on <b>{cls.ClassDay.toLocaleDateString()}</b>
-                      </p>
-                      <p>
-                        {cls.ClassTime} - {value} | {cls.ClassDuration} mins
-                      </p>
-                      <p className="beforeExtra">
-                        with {cls.ClassInstructorName}
-                      </p>
+                return (
+                  <div className="classesCard1" key={cls.ClassID}>
+                    <div className="card1">
+                      <div className="leftCard1">
+                        <img src={cls.ClassImageURL} alt={cls.ClassTitle} />
+                      </div>
+                      <div className="rightCard1">
+                        <h1 className="title">{cls.ClassTitle}</h1>
+                        <div className="text1">
+                          <p>
+                            on <b>{cls.ClassDay}</b>
+                          </p>
+                          <p>
+                            {cls.ClassTime} - {value} | {cls.ClassDuration} mins
+                          </p>
+                          <p className="beforeExtra">
+                            with {cls.ClassInstructorName}
+                          </p>
 
-                      <NavLink
-                        to={`/Attendee?classId=${cls.ClassID}`}
-                        className="view-attendees-link"
-                      >
-                        View Attendees
-                      </NavLink>
+                          <NavLink
+                            to={`/Attendee?classId=${cls.ClassID}`}
+                            className="view-attendees-link"
+                          >
+                            View Attendees
+                          </NavLink>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+                );
+              })}
+            </div>
+          </>
+        )}
       </div>
     </>
   );
