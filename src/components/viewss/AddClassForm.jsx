@@ -10,10 +10,10 @@ const initialClass = {
   ClassDay: null,
   ClassTime: "",
   ClassDuration: 0,
-  ClassLocationName: "",
+  ClassLocationID: 0,
   ClassCapacity: 0,
-  ClassInstructorName: "",
-  ClassProviderName: "",
+  ClassInstructorID: 0,
+  ClassCourseID: 0,
   ClassImageURL: "",
 };
 
@@ -24,17 +24,18 @@ function AddClassForm() {
   const myClassesEndPoint = `${apiURL}/classes`;
   const myInstructors = `${apiURL}/users/instructors`;
   const mylocations = `${apiURL}/locations`;
+  const mycourses = `${apiURL}/courses`;
 
   const conformance = {
     html2js: {
       ClassTitle: (value) => (value === "" ? "" : value),
       ClassDay: (value) => (value === "" ? null : new Date(value)),
-      ClassTime: (value) => (value === "" ? "" : value),
+      ClassTime: (value) => (value === "" ? "" : value + ":00"),
       ClassDuration: (value) => (value === null ? 0 : parseInt(value) || 0),
-      ClassLocationName: (value) => (value === "" ? "" : value),
+      ClassLocationID: (value) => (value === "" ? 0 : parseInt(value) || 0),
       ClassCapacity: (value) => (value === "" ? 0 : parseInt(value) || 0),
-      ClassInstructorName: (value) => (value === "" ? "" : value),
-      ClassProviderName: (value) => (value === "" ? "" : value),
+      ClassInstructorID: (value) => (value === "" ? 0 : parseInt(value) || 0),
+      ClassCourseID: (value) => (value === "" ? 0 : parseInt(value) || 0),
       ClassImageURL: (value) => (value === "" ? "" : value),
     },
 
@@ -48,10 +49,10 @@ function AddClassForm() {
           : value,
       ClassTime: (value) => (value === null ? "" : value),
       ClassDuration: (value) => (value === null ? 0 : value),
-      ClassLocationName: (value) => (value === null ? "" : value),
+      ClassLocationID: (value) => (value === null ? 0 : value),
       ClassCapacity: (value) => (value === null ? 0 : value),
-      ClassInstructorName: (value) => (value === null ? "" : value),
-      ClassProviderName: (value) => (value === null ? "" : value),
+      ClassInstructorID: (value) => (value === null ? 0 : value),
+      ClassCourseID: (value) => (value === null ? 0 : value),
       ClassImageURL: (value) => (value === null ? "" : value),
     },
   };
@@ -65,20 +66,41 @@ function AddClassForm() {
 
   const [instructors, setInstructors] = useState(null);
   const [locations, setLocations] = useState(null);
-  
-    const apiGet = async (endpoint,setState) => {
-      const response = await fetch(endpoint);
-      const result = await response.json();
-      setState(result);
-    };
-  
-    useEffect(() => {
-      apiGet(myInstructors,setInstructors);
-    }, [myInstructors]);
+  const [courses, setCourses] = useState(null);
 
-    useEffect(() => {
-      apiGet(mylocations,setLocations);
-    }, [mylocations]);
+  const apiGet = async (endpoint, setState) => {
+    const response = await fetch(endpoint);
+    const result = await response.json();
+    setState(result);
+  };
+
+  const apiPost = async (endpoint) => {
+    // build request object
+    const request = {
+      method: "POST",
+      body: JSON.stringify(singleClass),
+      headers: { "Content-type": "application/json" },
+    };
+
+    // call the fetch
+    const response = await fetch(endpoint, request);
+    const result = await response.json();
+    return response.status >= 200 && response.status < 300
+      ? { isSuccess: true }
+      : { isSuccess: false, message: result.message };
+  };
+
+  useEffect(() => {
+    apiGet(myInstructors, setInstructors);
+  }, [myInstructors]);
+
+  useEffect(() => {
+    apiGet(mylocations, setLocations);
+  }, [mylocations]);
+
+  useEffect(() => {
+    apiGet(mycourses, setCourses);
+  }, [mycourses]);
 
   // Handlers --------------------------------------------------
 
@@ -86,7 +108,7 @@ function AddClassForm() {
     navigate("/ProviderClasses");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (validate(singleClass)) {
       const updatedClass = {
         ...singleClass,
@@ -96,6 +118,10 @@ function AddClassForm() {
             : new Date(singleClass.ClassDay),
       };
 
+      const result = await apiPost(myClassesEndPoint, singleClass);
+      result.isSuccess
+        ? console.log("Successful")
+        : console.log(`Not Successful:${result.message}`);
       storedClasses().classes.push(updatedClass);
       changeSubmit();
       navigate("/ProviderClasses");
@@ -107,25 +133,25 @@ function AddClassForm() {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === "ClassDay")
-    {
+    if (name === "ClassDay") {
       console.log(value);
     }
-
 
     setSingleClass({
       ...singleClass,
       [name]: conformance.html2js[name](value),
     });
-    
   };
 
   const validate = (newClass) => {
     let isValid = true;
     let errors = {};
 
-    if (newClass.ClassTitle === initialClass.ClassTitle) {
-      errors.ClassTitle = "Title is not complete";
+    if (
+      newClass.ClassTitle === initialClass.ClassTitle ||
+      newClass.ClassTitle.length < 8
+    ) {
+      errors.ClassTitle = "Title is not complete or is less than 8 characters";
       isValid = false;
     }
     if (newClass.ClassDay === initialClass.ClassDay) {
@@ -140,26 +166,26 @@ function AddClassForm() {
       errors.ClassDuration = "ClassDuration must be greater than 0";
       isValid = false;
     }
-    if (newClass.ClassLocationName === initialClass.ClassLocationName) {
-      errors.ClassLocationName = "ClassLocationName is not complete";
+    if (newClass.ClassLocationID === initialClass.ClassLocationID) {
+      errors.ClassLocationID = "You have not selected a location";
       isValid = false;
     }
     if (!newClass.ClassCapacity || newClass.ClassCapacity <= 0) {
       errors.ClassCapacity = "ClassCapacity must be greater than 0";
       isValid = false;
     }
-    if (newClass.ClassInstructorName === initialClass.ClassInstructorName) {
-      errors.ClassInstructorName = "ClassInstructorName is not complete";
+    if (newClass.ClassInstructorID === initialClass.ClassInstructorID) {
+      errors.ClassInstructorID = "You have not selected an Instructor";
       isValid = false;
     }
-    if (newClass.ClassProviderName === initialClass.ClassProviderName) {
-      errors.ClassProviderName = "ClassProviderName is not complete";
+    if (newClass.ClassCourseID === initialClass.ClassCourseID) {
+      errors.ClassCourseID = "You have not selected a course";
       isValid = false;
     }
-    if (newClass.ClassImageURL === initialClass.ClassImageURL) {
-      errors.ClassImageURL = "ClassImageURL is not complete";
-      isValid = false;
-    }
+    //if (newClass.ClassImageURL === initialClass.ClassImageURL) {
+    //errors.ClassImageURL = "ClassImageURL is not complete";
+    //isValid = false;
+    //}
 
     setErrors(errors);
     setValid(isValid);
@@ -214,43 +240,31 @@ function AddClassForm() {
         <p className="unsuccess">{errors.ClassDuration}</p>
       )}
 
-      <FormField
-        label="Location Name"
-        type="text"
-        name="ClassLocationName"
-        value={conformance.js2html.ClassLocationName(
-          singleClass.ClassLocationName
+      <label>
+        Location Name<br></br>
+        {!locations ? (
+          <p>Loading records.....</p>
+        ) : (
+          <select
+            className="select-field"
+            name="ClassLocationID"
+            value={conformance.js2html.ClassLocationID(
+              singleClass.ClassLocationID
+            )}
+            onChange={handleChange}
+          >
+            <option value="0">None Selected</option>
+            {locations.map((location) => (
+              <option key={location.LocationID} value={location.LocationID}>
+                {location.LocationName}
+              </option>
+            ))}
+          </select>
         )}
-        onChange={handleChange}
-      ></FormField>
-      {errors.ClassLocationName != null && (
-        <p className="unsuccess">{errors.ClassLocationName}</p>
-      )}
-
-    <label>
-        Location Name
-        {
-          !locations ? (
-            <p>Loading records.....</p>
-          ):(
-            <select
-              name="ClassLocationName"
-              value={conformance.js2html.ClassLocationName(
-                singleClass.ClassLocationName
-              )}
-              onChange={handleChange}
-            >
-              <option value="0">None Selected</option>
-              {locations.map((location)=>(
-                <option key={location.LocationID} value={location.LocationID}>
-                  {location.LocationName}
-                </option>
-              ))}
-            </select>
-
-          )
-        }
       </label>
+      {errors.ClassLocationID != null && (
+        <p className="unsuccess">{errors.ClassLocationID}</p>
+      )}
 
       <FormField
         label="Capacity"
@@ -263,54 +277,55 @@ function AddClassForm() {
         <p className="unsuccess">{errors.ClassCapacity}</p>
       )}
 
-      <FormField
-        label="Instructor Name"
-        type="text"
-        name="ClassInstructorName"
-        value={singleClass.ClassInstructorName}
-        onChange={handleChange}
-      ></FormField>
-      {errors.ClassInstructorName != null && (
-        <p className="unsuccess">{errors.ClassInstructorName}</p>
+      <label>
+        Instructor Name<br></br>
+        {!instructors ? (
+          <p>Loading records.....</p>
+        ) : (
+          <select
+            className="select-field"
+            name="ClassInstructorID"
+            value={singleClass.ClassInstructorID}
+            onChange={handleChange}
+          >
+            <option value="0">None Selected</option>
+            {instructors.map((instructor) => (
+              <option key={instructor.UserID} value={instructor.UserID}>
+                {instructor.UserFirstname}
+              </option>
+            ))}
+          </select>
+        )}
+      </label>
+      {errors.ClassInstructorID != null && (
+        <p className="unsuccess">{errors.ClassInstructorID}</p>
       )}
 
       <label>
-        Instructor Name
-        {
-          !instructors ? (
-            <p>Loading records.....</p>
-          ):(
-            <select
-              name="ClassInstructorName"
-              value={singleClass.ClassInstructorName}
-              onChange={handleChange}
-            >
-              <option value="0">None Selected</option>
-              {instructors.map((instructor)=>(
-                <option key={instructor.UserID} value={instructor.UserID}>
-                  {instructor.UserFirstname}
-                </option>
-              ))}
-            </select>
-
-          )
-        }
-      </label>
-
-      <FormField
-        label="Provider Name"
-        type="text"
-        name="ClassProviderName"
-        value={conformance.js2html.ClassProviderName(
-          singleClass.ClassProviderName
+        Course name<br></br>
+        {!courses ? (
+          <p>Loading records.....</p>
+        ) : (
+          <select
+            className="select-field"
+            name="ClassCourseID"
+            value={singleClass.ClassCourseID}
+            onChange={handleChange}
+          >
+            <option value="0">None Selected</option>
+            {courses.map((course) => (
+              <option key={course.CourseID} value={course.CourseID}>
+                {course.CourseName}
+              </option>
+            ))}
+          </select>
         )}
-        onChange={handleChange}
-      ></FormField>
-      {errors.ClassProviderName != null && (
-        <p className="unsuccess">{errors.ClassProviderName}</p>
+      </label>
+      {errors.ClassCourseID != null && (
+        <p className="unsuccess">{errors.ClassCourseID}</p>
       )}
 
-      <FormField
+      {/* <FormField
         label="Class Image URL"
         type="text"
         name="ClassImageURL"
@@ -319,7 +334,7 @@ function AddClassForm() {
       ></FormField>
       {errors.ClassImageURL != null && (
         <p className="unsuccess">{errors.ClassImageURL}</p>
-      )}
+      )}*/}
     </FormDisplay>
   );
 }

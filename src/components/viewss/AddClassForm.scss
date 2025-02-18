@@ -3,3 +3,20 @@ p.unsuccess {
   font-size: 13.5px;
   padding-bottom: 10px;
 }
+
+.select-field {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.select-field::placeholder {
+  color: #777;
+}
+
+.select-field {
+  font-size: 16px;
+}
