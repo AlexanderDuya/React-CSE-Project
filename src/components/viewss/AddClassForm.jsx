@@ -1,6 +1,6 @@
 import "../viewss/AddClassForm.scss";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { storedClasses, changeSubmit } from "../viewss/storedClasses.jsx";
 import { FormField, FormDisplay } from "../UI/Form.jsx";
 
@@ -19,6 +19,11 @@ const initialClass = {
 
 function AddClassForm() {
   // Initialisation ----------------------------------------------
+
+  const apiURL = "https://softwarehub.uk/unibase/events/api";
+  const myClassesEndPoint = `${apiURL}/classes`;
+  const myInstructors = `${apiURL}/users/instructors`;
+  const mylocations = `${apiURL}/locations`;
 
   const conformance = {
     html2js: {
@@ -58,6 +63,23 @@ function AddClassForm() {
   const [valid, setValid] = useState(null);
   const [errors, setErrors] = useState({});
 
+  const [instructors, setInstructors] = useState(null);
+  const [locations, setLocations] = useState(null);
+  
+    const apiGet = async (endpoint,setState) => {
+      const response = await fetch(endpoint);
+      const result = await response.json();
+      setState(result);
+    };
+  
+    useEffect(() => {
+      apiGet(myInstructors,setInstructors);
+    }, [myInstructors]);
+
+    useEffect(() => {
+      apiGet(mylocations,setLocations);
+    }, [mylocations]);
+
   // Handlers --------------------------------------------------
 
   const handleCancel = () => {
@@ -84,10 +106,18 @@ function AddClassForm() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+
+    if (name === "ClassDay")
+    {
+      console.log(value);
+    }
+
+
     setSingleClass({
       ...singleClass,
       [name]: conformance.html2js[name](value),
     });
+    
   };
 
   const validate = (newClass) => {
@@ -197,6 +227,31 @@ function AddClassForm() {
         <p className="unsuccess">{errors.ClassLocationName}</p>
       )}
 
+    <label>
+        Location Name
+        {
+          !locations ? (
+            <p>Loading records.....</p>
+          ):(
+            <select
+              name="ClassLocationName"
+              value={conformance.js2html.ClassLocationName(
+                singleClass.ClassLocationName
+              )}
+              onChange={handleChange}
+            >
+              <option value="0">None Selected</option>
+              {locations.map((location)=>(
+                <option key={location.LocationID} value={location.LocationID}>
+                  {location.LocationName}
+                </option>
+              ))}
+            </select>
+
+          )
+        }
+      </label>
+
       <FormField
         label="Capacity"
         type="text"
@@ -218,6 +273,29 @@ function AddClassForm() {
       {errors.ClassInstructorName != null && (
         <p className="unsuccess">{errors.ClassInstructorName}</p>
       )}
+
+      <label>
+        Instructor Name
+        {
+          !instructors ? (
+            <p>Loading records.....</p>
+          ):(
+            <select
+              name="ClassInstructorName"
+              value={singleClass.ClassInstructorName}
+              onChange={handleChange}
+            >
+              <option value="0">None Selected</option>
+              {instructors.map((instructor)=>(
+                <option key={instructor.UserID} value={instructor.UserID}>
+                  {instructor.UserFirstname}
+                </option>
+              ))}
+            </select>
+
+          )
+        }
+      </label>
 
       <FormField
         label="Provider Name"
