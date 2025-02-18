@@ -66,7 +66,32 @@ div.cardContainer1 {
     div.rightCard1 {
       padding: 30px;
       width: 80%;
+
+      h1.title{
+        button{
+          float: right;
+          height: 45px;
+          width: 45px;
+          border-radius: 50%;
+
+          font-weight: bold;
+          font-size: 14px;
+
+          background-color: #2c3e50;
+          color: white;
+          transition: background-color 0.3s ease, transform 0.2s ease; // Smooth transition for hover effects
+
+          &:hover {
+            background-color: lighten(#2c3e50, 15%);
+            cursor: pointer;
+          }
+          
+        }
+        
+        
+      }
     }
+
     .title {
       text-align: left;
     }
@@ -104,7 +129,7 @@ div.cardContainer1 {
       p.lastExtra {
         padding-bottom: 10px;
       }
-
+      /*
       button {
         display: inline-block;
         background-color: #2c3e50; // Button background color
@@ -122,7 +147,7 @@ div.cardContainer1 {
           background-color: lighten(#2c3e50, 15%);
           cursor: pointer;
         }
-      }
+      }*/
     }
 
     img {
@@ -203,10 +228,49 @@ div.cardContainer1 {
         padding: 30px;
         width: 80%;
         text-align: center;
+
+        h1.title{
+          button{
+            height: 45px;
+            width: 45px;
+            border-radius: 50%;
+  
+            font-weight: bold;
+            font-size: 14px;
+  
+            background-color: #2c3e50;
+            color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease; // Smooth transition for hover effects
+  
+            &:hover {
+              background-color: lighten(#2c3e50, 15%);
+              cursor: pointer;
+            }
+            
+          }
+        }
       }
 
       div.text1 {
         font-size: large;
+        button.arrowbuttons{
+
+          height: 45px;
+          width: 45px;
+          border-radius: 50%;
+    
+          font-weight: bold;
+          font-size: 14px;
+    
+          background-color: #2c3e50;
+          color: white;
+          transition: background-color 0.3s ease, transform 0.2s ease; // Smooth transition for hover effects
+    
+          &:hover {
+            background-color: lighten(#2c3e50, 15%);
+            cursor: pointer;
+          }
+        }
       }
 
       img {
@@ -221,7 +285,36 @@ div.cardContainer1 {
         }*/
       }
     }
+
+    
+
   }
+
+   button.bottombutton{
+      height: 45px;
+      width: 45px;
+      border-radius: 50%;
+
+      font-weight: bold;
+      font-size: 14px;
+
+      background-color: #2c3e50;
+      color: white;
+      transition: background-color 0.3s ease, transform 0.2s ease; // Smooth transition for hover effects
+
+      &:hover {
+        background-color: lighten(#2c3e50, 15%);
+        cursor: pointer;
+      }
+
+      img {
+        width: 1%; /* Set image width to 100% of button width */
+        height: 1%; /* Set image height to 100% of button height */
+        //object-fit: cover; /* Ensures the image covers the button area */
+      }
+    }
+    
+  
 }
 
 @media only screen and (max-width: 586px) {

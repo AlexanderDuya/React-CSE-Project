@@ -1,5 +1,6 @@
 import "../viewss/ClientClasses.scss";
-import { useState } from "react";
+import Action, { Collapse } from "../UI/Actions.jsx";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { storedClasses } from "../viewss/storedClasses.jsx";
 
@@ -209,6 +210,36 @@ function ClientClasses() {
   classes.sort((a, b) => a.ClassDay - b.ClassDay);
   //console.log(classes);
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [topbutton, setTopbutton] = useState(true);
+
+  useEffect(() => {
+    // Checks window width size when user first enters page as a small screen
+    if (window.innerWidth <= 783)
+    {
+      setTopbutton(false);
+    }
+     // Checks window width size whenever the window is resized
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      if (window.innerWidth <= 783)
+        {
+          setTopbutton(false);
+        }
+      else
+      {
+        setTopbutton(true);
+      }
+    }
+    window.addEventListener("resize", handleResize);
+    
+    // Cleanup event listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  
+
+  console.log(topbutton);
   return (
     <>
       <h1 id="firstTitle1">Hello User!</h1>
@@ -233,7 +264,24 @@ function ClientClasses() {
                   <img src={class1.ClassImageURL}></img>
                 </div>
                 <div className="rightCard1">
-                  <h1 className="title">{class1.ClassTitle}</h1>
+                  {
+                    topbutton == true &&
+                  <h1 className="title">{class1.ClassTitle} {selectedClass === class1.ClassCourseID ? (<button
+                        onClick={() => handleClassClick(class1.ClassCourseID)}
+                      >
+                        <img
+                          src="https://img.icons8.com/material-sharp/24/FFFFFF/collapse-arrow.png"
+                          alt="Collapse icon"
+                        />
+                      </button>) :(<button
+                        onClick={() => handleClassClick(class1.ClassCourseID)}
+                      >
+                        <img
+                          src="https://img.icons8.com/material-sharp/24/FFFFFF/expand-arrow.png"
+                          alt="Expand icon"
+                        />
+                      </button>) }</h1>
+                  }
                   <div className="text1">
                     <p>
                       on <b>{class1.ClassDay.toLocaleDateString()}</b>
@@ -254,19 +302,25 @@ function ClientClasses() {
                             Max Capacity is {class1.ClassCapacity} People
                           </p>
                         </div>
-                        <button
-                          onClick={() => handleClassClick(class1.ClassCourseID)}
-                        >
-                          Close Information
-                        </button>
                       </div>
-                    ) : (
-                      <button
-                        onClick={() => handleClassClick(class1.ClassCourseID)}
-                      >
-                        More Information
-                      </button>
-                    )}
+                    ) :null}
+                    {topbutton === false && (selectedClass === class1.ClassCourseID ?(
+                        <button className="bottombutton" onClick={() => handleClassClick(class1.ClassCourseID)}>
+                            <img
+                              src="https://img.icons8.com/material-sharp/24/FFFFFF/collapse-arrow.png"
+                              alt="Collapse icon"
+                            />
+                        </button>
+                      ) : (
+                        <button className="bottombutton" onClick={() => handleClassClick(class1.ClassCourseID)}>
+                          <img
+                            src="https://img.icons8.com/material-sharp/24/FFFFFF/expand-arrow.png"
+                            alt="Expand icon"
+                          />
+                        </button>
+                    ))
+                    }
+
                   </div>
                 </div>
               </div>
