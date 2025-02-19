@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormField, FormDisplay } from "../UI/Form.jsx";
 import "../viewss/AddClientForm.scss";
@@ -12,242 +12,11 @@ const initialClient = {
   gender: "Male",
 };
 
-const initialClients = [
-  {
-    ClientID: 1,
-    ClientFirstname: "Graeme",
-    ClientLastname: "Jones",
-
-    ClientEmail: "G.Jones@example.com",
-    ClientPhone: "123-456-7890",
-    ClientDatejoined: new Date("2023-01-01"),
-    ClientAge: 30,
-    ClientGenderName: "Female",
-  },
-  {
-    ClientID: 2,
-    ClientFirstname: "Bob",
-    ClientLastname: "Johnson",
-
-    ClientEmail: "bob.johnson@example.com",
-    ClientPhone: "123-456-7891",
-    ClientDatejoined: new Date("2023-02-01"),
-    ClientAge: 25,
-    ClientGenderName: "Male",
-  },
-  {
-    ClientID: 3,
-    ClientFirstname: "Charlie",
-    ClientLastname: "Williams",
-
-    ClientEmail: "charlie.will@example.com",
-    ClientPhone: "123-456-7892",
-    ClientDatejoined: new Date("2023-03-01"),
-    ClientAge: 28,
-    ClientGenderName: "Male",
-  },
-  {
-    ClientID: 4,
-    ClientFirstname: "David",
-    ClientLastname: "Jones",
-
-    ClientEmail: "david.jones@example.com",
-    ClientPhone: "123-456-7893",
-    ClientDatejoined: new Date("2023-04-01"),
-    ClientAge: 32,
-    ClientGenderName: "Male",
-  },
-  {
-    ClientID: 5,
-    ClientFirstname: "Eve",
-    ClientLastname: "Brown",
-
-    ClientEmail: "eve.brown@example.com",
-    ClientPhone: "123-456-7894",
-    ClientDatejoined: new Date("2023-05-01"),
-    ClientAge: 22,
-    ClientGenderName: "Female",
-  },
-  {
-    ClientID: 6,
-    ClientFirstname: "John",
-    ClientLastname: "Duyanski",
-
-    ClientEmail: "John123@gmail.com",
-    ClientPhone: "123-456-7894",
-    ClientDatejoined: new Date("2023-05-01"),
-    ClientAge: 22,
-    ClientGenderName: "Male",
-  },
-  {
-    ClientID: 7,
-    ClientFirstname: "Alexander",
-    ClientLastname: "TheGreat",
-
-    ClientEmail: "alex123@gmail.com",
-    ClientPhone: "123-456-7894",
-    ClientDatejoined: new Date("2023-05-01"),
-    ClientAge: 22,
-    ClientGenderName: "Male",
-  },
-  {
-    ClientID: 8,
-    ClientFirstname: "Alicia",
-    ClientLastname: "Smithers",
-
-    ClientEmail: "alice.smith@example.com",
-    ClientPhone: "123-456-7890",
-    ClientDatejoined: new Date("2023-01-01"),
-    ClientAge: 30,
-    ClientGenderName: "Female",
-  },
-  {
-    ClientID: 9,
-    ClientFirstname: "Bob",
-    ClientLastname: "Marley",
-
-    ClientEmail: "bob@example.com",
-    ClientPhone: "123-456-7891",
-    ClientDatejoined: new Date("2023-02-01"),
-    ClientAge: 25,
-    ClientGenderName: "Male",
-  },
-  {
-    ClientID: 10,
-    ClientFirstname: "Carlos",
-    ClientLastname: "Greggs",
-
-    ClientEmail: "Carlos@example.com",
-    ClientPhone: "123-456-7892",
-    ClientDatejoined: new Date("2023-03-01"),
-    ClientAge: 28,
-    ClientGenderName: "Male",
-  },
-  {
-    ClientID: 11,
-    ClientFirstname: "David",
-    ClientLastname: "Lopez",
-
-    ClientEmail: "david@example.com",
-    ClientPhone: "123-456-7893",
-    ClientDatejoined: new Date("2023-04-01"),
-    ClientAge: 32,
-    ClientGenderName: "Male",
-  },
-  {
-    ClientID: 12,
-    ClientFirstname: "Eve",
-    ClientLastname: "Brown",
-
-    ClientEmail: "eve.brown@example.com",
-    ClientPhone: "123-456-7894",
-    ClientDatejoined: new Date("2023-05-01"),
-    ClientAge: 22,
-    ClientGenderName: "Female",
-  },
-  {
-    ClientID: 13,
-    ClientFirstname: "Alex",
-    ClientLastname: "Duya",
-
-    ClientEmail: "alexduya123@gmail.com",
-    ClientPhone: "123-456-7894",
-    ClientDatejoined: new Date("2023-05-01"),
-    ClientAge: 22,
-    ClientGenderName: "Male",
-  },
-  {
-    ClientID: 14,
-    ClientFirstname: "George",
-    ClientLastname: "Russell",
-
-    ClientEmail: "GR123@gmail.com",
-    ClientPhone: "123-456-7894",
-    ClientDatejoined: new Date("2023-05-01"),
-    ClientAge: 22,
-    ClientGenderName: "Male",
-  },
-  {
-    ClientID: 15,
-    ClientFirstname: "Alice",
-    ClientLastname: "Smith",
-
-    ClientEmail: "alice.smith@example.com",
-    ClientPhone: "123-456-7890",
-    ClientDatejoined: new Date("2023-01-01"),
-    ClientAge: 30,
-    ClientGenderName: "Female",
-  },
-  {
-    ClientID: 16,
-    ClientFirstname: "Agostine",
-    ClientLastname: "Samson",
-
-    ClientEmail: "AS@example.com",
-    ClientPhone: "123-456-7891",
-    ClientDatejoined: new Date("2023-02-01"),
-    ClientAge: 25,
-    ClientGenderName: "Male",
-  },
-  {
-    ClientID: 17,
-    ClientFirstname: "Charlie",
-    ClientLastname: "Williams",
-
-    ClientEmail: "charlie.will@example.com",
-    ClientPhone: "123-456-7892",
-    ClientDatejoined: new Date("2023-03-01"),
-    ClientAge: 28,
-    ClientGenderName: "Male",
-  },
-  {
-    ClientID: 18,
-    ClientFirstname: "David",
-    ClientLastname: "Jeje",
-
-    ClientEmail: "david.j@example.com",
-    ClientPhone: "123-456-7893",
-    ClientDatejoined: new Date("2023-04-01"),
-    ClientAge: 32,
-    ClientGenderName: "Male",
-  },
-  {
-    ClientID: 19,
-    ClientFirstname: "Evelyn",
-    ClientLastname: "Brown",
-
-    ClientEmail: "eve.brown@example.com",
-    ClientPhone: "123-456-7894",
-    ClientDatejoined: new Date("2023-05-01"),
-    ClientAge: 22,
-    ClientGenderName: "Female",
-  },
-  {
-    ClientID: 20,
-    ClientFirstname: "Lewis",
-    ClientLastname: "Rusky",
-
-    ClientEmail: "Lr123@gmail.com",
-    ClientPhone: "123-456-7894",
-    ClientDatejoined: new Date("2023-05-01"),
-    ClientAge: 22,
-    ClientGenderName: "Male",
-  },
-  {
-    ClientID: 21,
-    ClientFirstname: "Paul",
-    ClientLastname: "Neve",
-
-    ClientEmail: "alexduya123@gmail.com",
-    ClientPhone: "123-456-7894",
-    ClientDatejoined: new Date("2023-05-01"),
-    ClientAge: 22,
-    ClientGenderName: "Male",
-  },
-];
-
 function AddClientForm() {
   // Initialisation ----------------------------------------------
+  // API URL
+  const apiURL = "https://softwarehub.uk/unibase/events/api";
+  const usersEndpoint = `${apiURL}/users`;
 
   const conformance = {
     html2js: {
@@ -270,39 +39,81 @@ function AddClientForm() {
   };
 
   // State --------------------------------------------------
-
   const navigate = useNavigate();
   const [client, setClient] = useState(initialClient);
-  const [clients, setClients] = useState(initialClients);
+  const [clients, setClients] = useState([]);
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
   const [formVisible, setFormVisible] = useState(true);
 
-  // Handlers --------------------------------------------------
+  const apiGet = async (endpoint, setState) => {
+    try {
+      const response = await fetch(endpoint);
+      if (!response.ok) {
+        throw new Error("Failed to fetch clients");
+      }
+      const result = await response.json();
+      setState(result); // Update the state with fetched data
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setErrors({ submit: "Failed to fetch clients. Please try again later." });
+    }
+  };
 
+  const apiPost = async (usersEndpoint, data) => {
+    const request = {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-type": "application/json" },
+    };
+
+    const response = await fetch(usersEndpoint, request);
+    const result = await response.json();
+    return response.status >= 200 && response.status < 300
+      ? { isSuccess: true, data: result }
+      : { isSuccess: false, message: result.message };
+  };
+
+  // Fetch all clients
+  useEffect(() => {
+    apiGet(usersEndpoint, setClients);
+  }, [usersEndpoint]);
+
+  // Handlers --------------------------------------------------
   const handleCancel = () => {
     navigate("/ClientClasses");
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (validate(client)) {
       const newClient = {
-        ClientID: clients.length + 1,
-        ClientFirstname: client.firstName,
-        ClientLastname: client.lastName,
-        ClientEmail: client.email,
-        ClientPhone: client.phone,
-        ClientDatejoined: new Date(),
-        ClientAge: calculateAge(client.dob),
-        ClientGenderName: client.gender,
+        UserFirstname: client.firstName,
+        UserLastname: client.lastName,
+        UserEmail: client.email,
+        UserPhone: client.phone,
+        UserDatejoined: new Date().toISOString(),
+        UserDateofbirth: new Date(client.dob).toISOString(),
+        UserGenderID: client.gender === "Male" ? 1 : 2,
+        UserUsertypeID: 1,
+        UserGenderName: client.gender,
+        UserUsertypeName: "Client",
       };
 
-      setFormVisible(false);
-      setClients((prevClients) => [...prevClients, newClient]);
-      setClient(initialClient);
-      setSuccessMessage("Your account has been created!");
-      console.log("Client added:", newClient);
+      const postResult = await apiPost(usersEndpoint, newClient);
+
+      if (postResult.isSuccess) {
+        setFormVisible(false);
+        setClients((prevClients) => [...prevClients, newClient]);
+        setClient(initialClient);
+        setSuccessMessage("Your account has been created!");
+        console.log("Client added:", newClient);
+      } else {
+        setErrors({
+          submit:
+            postResult.message || "Failed to create account. Please try again.",
+        });
+      }
     }
   };
 
@@ -330,8 +141,8 @@ function AddClientForm() {
       errors.email = "Invalid email address";
       isValid = false;
     }
-    if (!/^\d{11}$/.test(newClient.phone)) {
-      errors.phone = "Phone number must be 11 digits";
+    if (!/^\+\d{11,}$/.test(newClient.phone)) {
+      errors.phone = "Phone number must be in format (e.g., +441234567890)";
       isValid = false;
     }
     if (!newClient.dob) {
@@ -366,11 +177,11 @@ function AddClientForm() {
   };
 
   // View -------------------------------------------------------
-
   return (
     <div className="add-client-form-container">
       <h1 id="signup">Sign up for an Account</h1>
       {successMessage && <p className="success-message">{successMessage}</p>}
+      {errors.submit && <p className="unsuccess">{errors.submit}</p>}
       {formVisible && (
         <FormDisplay handleSubmit={handleSubmit} handleCancel={handleCancel}>
           <FormField
@@ -433,38 +244,6 @@ function AddClientForm() {
           </label>
         </FormDisplay>
       )}
-
-      <div className="clients-list-container">
-        <h3>Clients</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Client ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Age</th>
-              <th>Gender</th>
-              <th>Date Joined</th>
-            </tr>
-          </thead>
-          <tbody>
-            {clients.map((client) => (
-              <tr key={client.ClientID}>
-                <td>{client.ClientID}</td>
-                <td>{client.ClientFirstname}</td>
-                <td>{client.ClientLastname}</td>
-                <td>{client.ClientEmail}</td>
-                <td>{client.ClientPhone}</td>
-                <td>{client.ClientAge}</td>
-                <td>{client.ClientGenderName}</td>
-                <td>{client.ClientDatejoined.toLocaleDateString()}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
     </div>
   );
 }
