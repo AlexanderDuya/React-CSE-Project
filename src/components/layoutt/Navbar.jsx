@@ -34,13 +34,25 @@ function Navbar() {
           <div className="navItem">
             <NavLink to="/InstructorsClasses">Instructor View</NavLink>
           </div>
+
+          <div className="navItem">
+            <NavLink to="/" onClick={logout}>Logout</NavLink>
+          </div>
           </>
           )
         }
         {loggedInUser.UserUsertypeName == "Client"  &&(
+          <>
           <div className="navItem">
             <NavLink to="/ClientClasses">Client View</NavLink>
-          </div>)
+          </div>
+
+          <div className="navItem">
+            <NavLink to="/" onClick={logout}>Logout</NavLink>
+           </div>
+          </>
+        )
+          
         }
 
         {loggedInUser.UserUsertypeName == "Instructor"  &&(
@@ -52,18 +64,21 @@ function Navbar() {
           <div className="navItem">
             <NavLink to="/InstructorsClasses">Instructor View</NavLink>
           </div>
+
+          <div className="navItem">
+            <NavLink to="/" onClick={logout}>Logout</NavLink>
+          </div>
           </>
           )
        }
         </>)
       }
-      <div className="navItem">
-        <NavLink to="/Login">Login</NavLink>
-      </div>
 
-      <div className="navItem">
-        <NavLink to="/" onClick={logout}>Logout</NavLink>
-      </div>
+      {loggedInUser == null &&
+        <div className="navItem">
+          <NavLink to="/Login">Login</NavLink>
+        </div>
+      }
     </nav>
   );
 }
