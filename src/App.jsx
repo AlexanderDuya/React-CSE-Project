@@ -8,32 +8,37 @@ import PageNotFound from "./components/viewss/404.jsx";
 import InstructorClasses from "./components/viewss/InstructorsClasses.jsx";
 import AddClassForm from "./components/viewss/AddClassForm.jsx";
 import AddClientForm from "./components/viewss/AddClientForm.jsx";
+import { AuthProvider } from "./components/UI/useAuth.jsx";
+import Login from "./components/viewss/Login.jsx";
 
 function App() {
-  const loggedInUser = "Alexander Duya";
 
   return (
-    <BrowserRouter>
-      <Layout loggedInUser={loggedInUser}>
-        <Routes>
-          <Route path="/" element={<Home />} />
+    <AuthProvider>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
 
-          <Route path="/ProviderClasses" element={<ProviderClasses />} />
+            <Route path="/ProviderClasses" element={<ProviderClasses />} />
 
-          <Route path="/AddClassForm" element={<AddClassForm />} />
+            <Route path="/AddClassForm" element={<AddClassForm />} />
 
-          <Route path="/AddClientForm" element={<AddClientForm />} />
+            <Route path="/AddClientForm" element={<AddClientForm />} />
 
-          <Route path="/ClientClasses" element={<ClientClasses />} />
+            <Route path="/ClientClasses" element={<ClientClasses />} />
 
-          <Route path="/InstructorsClasses" element={<InstructorClasses />} />
+            <Route path="/InstructorsClasses" element={<InstructorClasses />} />
 
-          <Route path="/Attendee" element={<Attendee />} />
+            <Route path="/Attendee" element={<Attendee />} />
+            
+            <Route path="/Login" element={<Login />} />
 
-          <Route path="/*" element={<PageNotFound />} />
-        </Routes>
-      </Layout>
-    </BrowserRouter>
+            <Route path="/*" element={<PageNotFound />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
