@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormField, FormDisplay } from "../UI/Form.jsx";
 import "../viewss/AddClientForm.scss";
+import { apiGet, apiPost } from "./API.jsx";
 
 const initialClient = {
   firstName: "",
@@ -46,37 +47,9 @@ function AddClientForm() {
   const [successMessage, setSuccessMessage] = useState("");
   const [formVisible, setFormVisible] = useState(true);
 
-  const apiGet = async (endpoint, setState) => {
-    try {
-      const response = await fetch(endpoint);
-      if (!response.ok) {
-        throw new Error("Failed to fetch clients");
-      }
-      const result = await response.json();
-      setState(result); // Update the state with fetched data
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      setErrors({ submit: "Failed to fetch clients. Please try again later." });
-    }
-  };
-
-  const apiPost = async (usersEndpoint, data) => {
-    const request = {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: { "Content-type": "application/json" },
-    };
-
-    const response = await fetch(usersEndpoint, request);
-    const result = await response.json();
-    return response.status >= 200 && response.status < 300
-      ? { isSuccess: true, data: result }
-      : { isSuccess: false, message: result.message };
-  };
-
   // Fetch all clients
   useEffect(() => {
-    apiGet(usersEndpoint, setClients);
+    apiGet(usersEndpoint, setClients, setErrors);
   }, [usersEndpoint]);
 
   // Handlers --------------------------------------------------
@@ -101,19 +74,12 @@ function AddClientForm() {
       };
 
       const postResult = await apiPost(usersEndpoint, newClient);
-
-      if (postResult.isSuccess) {
-        setFormVisible(false);
-        setClients((prevClients) => [...prevClients, newClient]);
-        setClient(initialClient);
-        setSuccessMessage("Your account has been created!");
-        console.log("Client added:", newClient);
-      } else {
-        setErrors({
-          submit:
-            postResult.message || "Failed to create account. Please try again.",
-        });
-      }
+      postResult.isSuccess;
+      setFormVisible(false);
+      setClients((prevClients) => [...prevClients, newClient]);
+      setClient(initialClient);
+      setSuccessMessage("Your account has been created!");
+      console.log("Client added:", newClient);
     }
   };
 

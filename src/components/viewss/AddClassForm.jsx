@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { storedClasses, changeSubmit } from "../viewss/storedClasses.jsx";
 import { FormField, FormDisplay } from "../UI/Form.jsx";
+import { apiGet, apiPost } from "./API.jsx";
 
 const initialClass = {
   ClassTitle: "",
@@ -68,30 +69,8 @@ function AddClassForm() {
   const [locations, setLocations] = useState(null);
   const [courses, setCourses] = useState(null);
 
-  const apiGet = async (endpoint, setState) => {
-    const response = await fetch(endpoint);
-    const result = await response.json();
-    setState(result);
-  };
-
-  const apiPost = async (endpoint) => {
-    // build request object
-    const request = {
-      method: "POST",
-      body: JSON.stringify(singleClass),
-      headers: { "Content-type": "application/json" },
-    };
-
-    // call the fetch
-    const response = await fetch(endpoint, request);
-    const result = await response.json();
-    return response.status >= 200 && response.status < 300
-      ? { isSuccess: true }
-      : { isSuccess: false, message: result.message };
-  };
-
   useEffect(() => {
-    apiGet(myInstructors, setInstructors);
+    apiGet(myInstructors, setInstructors, setErrors);
   }, [myInstructors]);
 
   useEffect(() => {
@@ -118,15 +97,13 @@ function AddClassForm() {
             : new Date(singleClass.ClassDay),
       };
 
-      const result = await apiPost(myClassesEndPoint, singleClass);
-      result.isSuccess
+      const postResult = await apiPost(myClassesEndPoint, singleClass);
+      postResult.isSuccess
         ? console.log("Successful")
-        : console.log(`Not Successful:${result.message}`);
+        : console.log(`Not Successful:${postResult.message}`);
       storedClasses().classes.push(updatedClass);
       changeSubmit();
       navigate("/ProviderClasses");
-
-      console.log(`Class=[${JSON.stringify(updatedClass)}]`);
     }
   };
 
