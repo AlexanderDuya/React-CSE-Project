@@ -4,7 +4,7 @@ import "../viewss/InstructorsClasses.scss";
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { storedClasses } from "../viewss/storedClasses.jsx";
-import { apiGet } from "./API.jsx";
+import { apiGet } from "../API/API.jsx";
 
 function InstructorsClasses() {
   //Initialization ---------------------------------------------------------

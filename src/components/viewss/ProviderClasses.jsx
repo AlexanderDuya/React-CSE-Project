@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Actions from "../UI/Actions";
 import { storedClasses } from "../viewss/storedClasses.jsx";
-import { apiGet } from "./API.jsx";
+import { apiGet } from "../API/API.jsx";
 
 function ProviderClasses() {
   //Initialization -----------------------------------------------

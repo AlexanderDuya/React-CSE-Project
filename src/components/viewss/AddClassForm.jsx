@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { storedClasses, changeSubmit } from "../viewss/storedClasses.jsx";
 import { FormField, FormDisplay } from "../UI/Form.jsx";
-import { apiGet, apiPost } from "../Api/API.jsx";
+import { apiGet, apiPost } from "../API/API.jsx";
 
 const initialClass = {
   ClassTitle: "",

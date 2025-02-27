@@ -2,7 +2,7 @@ import "../viewss/ClientClasses.scss";
 import Action, { Collapse } from "../UI/Actions.jsx";
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { apiGet } from "./API.jsx";
+import { apiGet } from "../API/API.jsx";
 
 function ClientClasses() {
   //Initialization ---------------------------------------------------------

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormField, FormDisplay } from "../UI/Form.jsx";
 import "../viewss/AddClientForm.scss";
-import { apiGet, apiPost } from "./API.jsx";
+import { apiGet, apiPost } from "../API/API.jsx";
 
 const initialClient = {
   firstName: "",
