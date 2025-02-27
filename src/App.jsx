@@ -10,6 +10,7 @@ import AddClassForm from "./components/viewss/AddClassForm.jsx";
 import AddClientForm from "./components/viewss/AddClientForm.jsx";
 import { AuthProvider } from "./components/UI/useAuth.jsx";
 import Login from "./components/viewss/Login.jsx";
+import ProtectedRoute from "./components/UI/ProtectedRoute.jsx";
 
 function App() {
 
@@ -20,17 +21,17 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
 
-            <Route path="/ProviderClasses" element={<ProviderClasses />} />
+            <Route path="/ProviderClasses" element={<ProtectedRoute><ProviderClasses /></ProtectedRoute>} />
 
-            <Route path="/AddClassForm" element={<AddClassForm />} />
+            <Route path="/AddClassForm" element={<ProtectedRoute><AddClassForm /></ProtectedRoute>} />
 
-            <Route path="/AddClientForm" element={<AddClientForm />} />
+            <Route path="/AddClientForm" element={<ProtectedRoute><AddClientForm /></ProtectedRoute>} />
 
-            <Route path="/ClientClasses" element={<ClientClasses />} />
+            <Route path="/ClientClasses" element={<ProtectedRoute><ClientClasses /></ProtectedRoute>} />
 
-            <Route path="/InstructorsClasses" element={<InstructorClasses />} />
+            <Route path="/InstructorsClasses" element={<ProtectedRoute><InstructorClasses /></ProtectedRoute>} />
 
-            <Route path="/Attendee" element={<Attendee />} />
+            <Route path="/Attendee" element={<ProtectedRoute><Attendee /></ProtectedRoute>} />
             
             <Route path="/Login" element={<Login />} />
 
