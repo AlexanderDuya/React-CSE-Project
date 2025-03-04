@@ -9,18 +9,18 @@ function Login()
     const navigate = useNavigate();
 
     const client   = {
-        UserID: 1,
+        UserID: 32,
         UserFirstname: "John",
-        UserLastname: "Williams",
-        UserEmail: "john.williams@example.com",
-        UserPhone: "+44 7911 123456",
-        UserDatejoined: "2023-02-15T00:00:00.000Z",
-        UserDateofbirth: "1997-09-03T00:00:00.000Z",
+        UserLastname: "David",
+        UserEmail: "john@test.com",
+        UserPhone: "+4475643564354",
+        UserDatejoined: "2025-02-19T00:00:00.000Z",
+        UserDateofbirth: "2004-08-08T00:00:00.000Z",
         UserGenderID: 1,
         UserUsertypeID: 1,
         UserGenderName: "Male",
         UserUsertypeName: "Client"
-    }
+      }
 
     const instructor = {
         UserID: 21,

@@ -2,13 +2,32 @@ import "../viewss/ClientClasses.scss";
 import Action, { Collapse } from "../UI/Actions.jsx";
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { apiGet } from "../API/API.jsx";
+import { apiGet, apiPost } from "../API/API.jsx";
+import { Confirm } from "../UI/Notifications.jsx";
+import { useModal } from "../UI/Modal.jsx";
+import { useAuth } from "../UI/useAuth.jsx";
+
 
 function ClientClasses() {
   //Initialization ---------------------------------------------------------
 
   const apiURL = "https://softwarehub.uk/unibase/events/api";
   const myClassesEndPoint = `${apiURL}/classes`;
+  let myBookingsEndPoint = `${apiURL}/bookings`;
+  
+  const { loggedInUser } = useAuth();
+
+  const [showConfirm, confirmContent, openConfirm, closeConfirm] = useModal(false);
+
+  const bookings = {
+    BookingUserID: null,
+    BookingClassID: null,
+    BookingBookingdate: null,
+    BookingBookingstatusID: 1,
+    BookingBookingstatusName: "Pending"
+  }
+
+  
 
   const URLs = [];
   URLs[0] =
@@ -46,16 +65,22 @@ function ClientClasses() {
     return endHours + ":" + formattedMins;
   };
 
+  
+
   // State ------------------------------------------------------------
 
   const [selectedClass, setSelectedClass] = useState();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [topbutton, setTopbutton] = useState(true);
   const [classess, setClassess] = useState(null);
+  const [classid, setClassid] = useState(null);
+  const [bookinglist, setBookinglist] = useState(null);
+
 
   useEffect(() => {
     apiGet(myClassesEndPoint, setClassess); // Use modularized API call
   }, [myClassesEndPoint]);
+  
 
   useEffect(() => {
     // Checks window width size when user first enters page as a small screen
@@ -103,16 +128,45 @@ function ClientClasses() {
     });
   }
 
+  const handleEnroll = (id)=>{
+    openConfirm("Are you sure");
+
+    
+    setClassid(id);
+
+  }
+
+  const handleSubmit = async()=>{
+    
+    bookings.BookingUserID = loggedInUser.UserID;
+    bookings.BookingClassID = classid;
+    
+    const d = new Date();
+    bookings.BookingBookingdate = d.toISOString();
+
+    console.log(bookings);
+    const result = await apiPost(myBookingsEndPoint, bookings);
+    if (result.isSuccess) onSuccess();
+    }
+
+ 
   // View ---------------------------------------------#
 
   return (
     <>
       <h1 id="firstTitle1">Hello User!</h1>
       <h2 id="secondTitle1">Upcoming classes</h2>
-      {!classes ? (
+      {(!classes && !bookinglist) ? (
         <p>Loading records</p>
       ) : (
         <>
+          <Confirm
+            show={showConfirm}
+            message={confirmContent}
+            onConfirm={handleSubmit}
+            onDismiss={closeConfirm}
+          />
+
           {/* Add Client Button */}
           <NavLink to="/AddClientForm" className="navLinkButton">
             Create an Account
@@ -171,6 +225,7 @@ function ClientClasses() {
                         <p className="beforeExtra">
                           with {class1.ClassInstructorName}
                         </p>
+                         <button onClick={()=>handleEnroll(class1.ClassID)} >Enroll here</button>
                         {selectedClass === class1.ClassID ? (
                           <div>
                             <div className="extraDiv">
