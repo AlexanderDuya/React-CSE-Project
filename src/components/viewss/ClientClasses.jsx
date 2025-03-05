@@ -225,7 +225,7 @@ function ClientClasses() {
                         <p className="beforeExtra">
                           with {class1.ClassInstructorName}
                         </p>
-                         <button onClick={()=>handleEnroll(class1.ClassID)} >Enroll here</button>
+                         <button id="enroll" onClick={()=>handleEnroll(class1.ClassID)} >Enroll here</button>
                         {selectedClass === class1.ClassID ? (
                           <div>
                             <div className="extraDiv">
