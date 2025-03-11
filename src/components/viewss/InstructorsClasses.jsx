@@ -4,13 +4,12 @@ import "../viewss/InstructorsClasses.scss";
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { storedClasses } from "../viewss/storedClasses.jsx";
-import { apiGet } from "../API/API.jsx";
+import useLoad from "../Api/useLoad";
 
 function InstructorsClasses() {
   //Initialization ---------------------------------------------------------
 
-  const apiURL = "https://softwarehub.uk/unibase/events/api";
-  const myClassesEndPoint = `${apiURL}/classes`;
+  const myClassesEndPoint = `/classes`;
 
   const URLs = [];
   URLs[0] =
@@ -51,11 +50,8 @@ function InstructorsClasses() {
 
   const [selectedClass] = useState();
 
-  const [classess, setClassess] = useState(null);
-
-  useEffect(() => {
-    apiGet(myClassesEndPoint, setClassess);
-  }, [myClassesEndPoint]);
+  const [classess, setClassess, isLoading, loadClassess] =
+    useLoad(myClassesEndPoint);
 
   // Assigns an image url field to every field with values after 10 with same image
   let classes = null;

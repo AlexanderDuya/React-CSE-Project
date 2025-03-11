@@ -2,32 +2,30 @@ import "../viewss/ClientClasses.scss";
 import Action, { Collapse } from "../UI/Actions.jsx";
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { apiGet, apiPost } from "../API/API.jsx";
 import { Confirm } from "../UI/Notifications.jsx";
 import { useModal } from "../UI/Modal.jsx";
 import { useAuth } from "../UI/useAuth.jsx";
-
+import useLoad from "../Api/useLoad.jsx";
+import API from "../Api/API.jsx";
 
 function ClientClasses() {
   //Initialization ---------------------------------------------------------
 
-  const apiURL = "https://softwarehub.uk/unibase/events/api";
-  const myClassesEndPoint = `${apiURL}/classes`;
-  let myBookingsEndPoint = `${apiURL}/bookings`;
-  
   const { loggedInUser } = useAuth();
+  const myClassesEndPoint = `/classes`;
+  let myBookingsEndPoint = `/bookings`;
+  const myEnrolledClassesEndPoint = `/classes/users/${loggedInUser.UserID}`;
 
-  const [showConfirm, confirmContent, openConfirm, closeConfirm] = useModal(false);
+  const [showConfirm, confirmContent, openConfirm, closeConfirm] =
+    useModal(false);
 
   const bookings = {
     BookingUserID: null,
     BookingClassID: null,
     BookingBookingdate: null,
     BookingBookingstatusID: 1,
-    BookingBookingstatusName: "Pending"
-  }
-
-  
+    BookingBookingstatusName: "Pending",
+  };
 
   const URLs = [];
   URLs[0] =
@@ -65,22 +63,23 @@ function ClientClasses() {
     return endHours + ":" + formattedMins;
   };
 
-  
-
   // State ------------------------------------------------------------
 
   const [selectedClass, setSelectedClass] = useState();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [topbutton, setTopbutton] = useState(true);
-  const [classess, setClassess] = useState(null);
+
+  const [classess, setClassess, isClassesLoading, loadClassess] =
+    useLoad(myClassesEndPoint);
+
   const [classid, setClassid] = useState(null);
   const [bookinglist, setBookinglist] = useState(null);
-
-
-  useEffect(() => {
-    apiGet(myClassesEndPoint, setClassess); // Use modularized API call
-  }, [myClassesEndPoint]);
-  
+  const [
+    enrolledClasses,
+    setEnrolledClasses,
+    isEnrolledClassesLoading,
+    loadEnrolledClasses,
+  ] = useLoad(myEnrolledClassesEndPoint);
 
   useEffect(() => {
     // Checks window width size when user first enters page as a small screen
@@ -128,35 +127,40 @@ function ClientClasses() {
     });
   }
 
-  const handleEnroll = (id)=>{
+  const handleEnroll = (id) => {
     openConfirm("Are you sure");
 
-    
     setClassid(id);
+  };
 
-  }
+  const checkEnroll = (classID) => {
+    let valid = true;
+    enrolledClasses.map((x) => {
+      if (x.ClassID == classID) {
+        valid = false;
+      }
+    });
+    return valid;
+  };
 
-  const handleSubmit = async()=>{
-    
+  const handleSubmit = async () => {
     bookings.BookingUserID = loggedInUser.UserID;
     bookings.BookingClassID = classid;
-    
+
     const d = new Date();
     bookings.BookingBookingdate = d.toISOString();
 
-    console.log(bookings);
-    const result = await apiPost(myBookingsEndPoint, bookings);
-    if (result.isSuccess) onSuccess();
-    }
+    const result = await API.post(myBookingsEndPoint, bookings);
+    if (result.isSuccess);
+  };
 
- 
   // View ---------------------------------------------#
 
   return (
     <>
       <h1 id="firstTitle1">Hello User!</h1>
       <h2 id="secondTitle1">Upcoming classes</h2>
-      {(!classes && !bookinglist) ? (
+      {!classes && !bookinglist ? (
         <p>Loading records</p>
       ) : (
         <>
@@ -225,7 +229,16 @@ function ClientClasses() {
                         <p className="beforeExtra">
                           with {class1.ClassInstructorName}
                         </p>
-                         <button id="enroll" onClick={()=>handleEnroll(class1.ClassID)} >Enroll here</button>
+                        {checkEnroll(class1.ClassID) ? (
+                          <button
+                            id="enroll"
+                            onClick={() => handleEnroll(class1.ClassID)}
+                          >
+                            Enroll here
+                          </button>
+                        ) : (
+                          <p>Your are already enrolled</p>
+                        )}
                         {selectedClass === class1.ClassID ? (
                           <div>
                             <div className="extraDiv">

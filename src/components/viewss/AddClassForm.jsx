@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { storedClasses, changeSubmit } from "../viewss/storedClasses.jsx";
 import { FormField, FormDisplay } from "../UI/Form.jsx";
-import { apiGet, apiPost } from "../API/API.jsx";
+import useLoad from "../Api/useLoad";
+import API from "../Api/API.jsx";
 
 const initialClass = {
   ClassTitle: "",
@@ -20,12 +21,10 @@ const initialClass = {
 
 function AddClassForm() {
   // Initialisation ----------------------------------------------
-
-  const apiURL = "https://softwarehub.uk/unibase/events/api";
-  const myClassesEndPoint = `${apiURL}/classes`;
-  const myInstructors = `${apiURL}/users/instructors`;
-  const mylocations = `${apiURL}/locations`;
-  const mycourses = `${apiURL}/courses`;
+  const myClassesEndPoint = `/classes`;
+  const myInstructors = `/users/instructors`;
+  const myLocations = `/locations`;
+  const myCourses = `/courses`;
 
   const conformance = {
     html2js: {
@@ -65,21 +64,12 @@ function AddClassForm() {
   const [valid, setValid] = useState(null);
   const [errors, setErrors] = useState({});
 
-  const [instructors, setInstructors] = useState(null);
-  const [locations, setLocations] = useState(null);
-  const [courses, setCourses] = useState(null);
-
-  useEffect(() => {
-    apiGet(myInstructors, setInstructors, setErrors);
-  }, [myInstructors]);
-
-  useEffect(() => {
-    apiGet(mylocations, setLocations);
-  }, [mylocations]);
-
-  useEffect(() => {
-    apiGet(mycourses, setCourses);
-  }, [mycourses]);
+  const [instructors, setInstructors, isInstructorsLoading, loadInstructors] =
+    useLoad(myInstructors);
+  const [locations, setLocations, isLocationsLoading, loadLocations] =
+    useLoad(myLocations);
+  const [courses, setCourses, isCoursesLoading, loadCourses] =
+    useLoad(myCourses);
 
   // Handlers --------------------------------------------------
 
@@ -97,7 +87,7 @@ function AddClassForm() {
             : new Date(singleClass.ClassDay),
       };
 
-      const postResult = await apiPost(myClassesEndPoint, singleClass);
+      const postResult = await API.post(myClassesEndPoint, singleClass);
       postResult.isSuccess
         ? console.log("Successful")
         : console.log(`Not Successful:${postResult.message}`);

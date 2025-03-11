@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormField, FormDisplay } from "../UI/Form.jsx";
 import "../viewss/AddClientForm.scss";
-import { apiGet, apiPost } from "../API/API.jsx";
+import useLoad from "../Api/useLoad";
+import API from "../Api/API.jsx";
 
 const initialClient = {
   firstName: "",
@@ -15,9 +16,8 @@ const initialClient = {
 
 function AddClientForm() {
   // Initialisation ----------------------------------------------
-  // API URL
-  const apiURL = "https://softwarehub.uk/unibase/events/api";
-  const usersEndpoint = `${apiURL}/users`;
+
+  const usersEndpoint = `/users`;
 
   const conformance = {
     html2js: {
@@ -42,15 +42,11 @@ function AddClientForm() {
   // State --------------------------------------------------
   const navigate = useNavigate();
   const [client, setClient] = useState(initialClient);
-  const [clients, setClients] = useState([]);
+  const [clients, setClients, isClientsLoading, loadClients] =
+    useLoad(usersEndpoint);
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
   const [formVisible, setFormVisible] = useState(true);
-
-  // Fetch all clients
-  useEffect(() => {
-    apiGet(usersEndpoint, setClients, setErrors);
-  }, [usersEndpoint]);
 
   // Handlers --------------------------------------------------
   const handleCancel = () => {
@@ -73,7 +69,7 @@ function AddClientForm() {
         UserUsertypeName: "Client",
       };
 
-      const postResult = await apiPost(usersEndpoint, newClient);
+      const postResult = await API.post(usersEndpoint, newClient);
       postResult.isSuccess;
       setFormVisible(false);
       setClients((prevClients) => [...prevClients, newClient]);
