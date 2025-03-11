@@ -152,6 +152,8 @@ function ClientClasses() {
 
     const result = await API.post(myBookingsEndPoint, bookings);
     if (result.isSuccess);
+
+    loadEnrolledClasses(myEnrolledClassesEndPoint);
   };
 
   // View ---------------------------------------------#
@@ -234,7 +236,7 @@ function ClientClasses() {
                             id="enroll"
                             onClick={() => handleEnroll(class1.ClassID)}
                           >
-                            Enroll here
+                            Enrol here
                           </button>
                         ) : (
                           <p>Your are already enrolled</p>
