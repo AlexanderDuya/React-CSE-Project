@@ -1,7 +1,6 @@
 import "../viewss/AddClassForm.scss";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { storedClasses, changeSubmit } from "../viewss/storedClasses.jsx";
 import { FormField, FormDisplay } from "../UI/Form.jsx";
 import useLoad from "../Api/useLoad";
 import API from "../Api/API.jsx";
@@ -91,7 +90,7 @@ function AddClassForm() {
       postResult.isSuccess
         ? console.log("Successful")
         : console.log(`Not Successful:${postResult.message}`);
-      storedClasses().classes.push(updatedClass);
+
       changeSubmit();
       navigate("/ProviderClasses");
     }

@@ -11,10 +11,8 @@ import AddClientForm from "./components/viewss/AddClientForm.jsx";
 import { AuthProvider } from "./components/UI/useAuth.jsx";
 import Login from "./components/viewss/Login.jsx";
 import ProtectedRoute from "./components/UI/ProtectedRoute.jsx";
-import Test from "./components/entitites/test.jsx";
 
 function App() {
-
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -22,21 +20,61 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
 
-            <Route path="/ProviderClasses" element={<ProtectedRoute><ProviderClasses /></ProtectedRoute>} />
+            <Route
+              path="/ProviderClasses"
+              element={
+                <ProtectedRoute>
+                  <ProviderClasses />
+                </ProtectedRoute>
+              }
+            />
 
-            <Route path="/AddClassForm" element={<ProtectedRoute><AddClassForm /></ProtectedRoute>} />
+            <Route
+              path="/AddClassForm"
+              element={
+                <ProtectedRoute>
+                  <AddClassForm />
+                </ProtectedRoute>
+              }
+            />
 
-            <Route path="/AddClientForm" element={<ProtectedRoute><AddClientForm /></ProtectedRoute>} />
+            <Route
+              path="/AddClientForm"
+              element={
+                <ProtectedRoute>
+                  <AddClientForm />
+                </ProtectedRoute>
+              }
+            />
 
-            <Route path="/ClientClasses" element={<ProtectedRoute><ClientClasses /></ProtectedRoute>} />
+            <Route
+              path="/ClientClasses"
+              element={
+                <ProtectedRoute>
+                  <ClientClasses />
+                </ProtectedRoute>
+              }
+            />
 
-            <Route path="/InstructorsClasses" element={<ProtectedRoute><InstructorClasses /></ProtectedRoute>} />
+            <Route
+              path="/InstructorsClasses"
+              element={
+                <ProtectedRoute>
+                  <InstructorClasses />
+                </ProtectedRoute>
+              }
+            />
 
-            <Route path="/Attendee" element={<ProtectedRoute><Attendee /></ProtectedRoute>} />
-            
+            <Route
+              path="/Attendee"
+              element={
+                <ProtectedRoute>
+                  <Attendee />
+                </ProtectedRoute>
+              }
+            />
+
             <Route path="/Login" element={<Login />} />
-
-            <Route path="/Test" element={<Test />} />
 
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
