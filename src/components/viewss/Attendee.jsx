@@ -4,12 +4,14 @@ import useLoad from "../Api/useLoad";
 import { useState, useEffect } from "react";
 
 function Attendee() {
+  // Initialization ---------------------------------------------------------
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const classId = Number(queryParams.get("classId")); // Get classId from URL params
 
   const bookingsEndPoint = `/users/classes/${classId}`; // Dynamic API
 
+  // State ------------------------------------------------------------------
   const [attendees, setAttendees, isLoading, loadAttendees] = useLoad([
     bookingsEndPoint,
   ]);
@@ -17,6 +19,7 @@ function Attendee() {
 
   useEffect(() => {}, [bookingsEndPoint, classId]); // Fetch data when classId changes
 
+  // Handlers --------------------------------------------------------------
   // Function to toggle the attendance status
   const toggleAttendance = (clientId) => {
     setAttendance((prevAttendance) => ({
@@ -25,6 +28,7 @@ function Attendee() {
     }));
   };
 
+  // View ------------------------------------------------------------------
   return (
     <div>
       <h2 className="page-title">

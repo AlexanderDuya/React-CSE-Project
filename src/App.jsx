@@ -11,6 +11,7 @@ import AddClientForm from "./components/viewss/AddClientForm.jsx";
 import { AuthProvider } from "./components/UI/useAuth.jsx";
 import Login from "./components/viewss/Login.jsx";
 import ProtectedRoute from "./components/UI/ProtectedRoute.jsx";
+import Test from "./components/entitites/test.jsx";
 
 function App() {
 
@@ -34,6 +35,8 @@ function App() {
             <Route path="/Attendee" element={<ProtectedRoute><Attendee /></ProtectedRoute>} />
             
             <Route path="/Login" element={<Login />} />
+
+            <Route path="/Test" element={<Test />} />
 
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
