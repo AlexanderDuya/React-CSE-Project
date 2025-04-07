@@ -1,7 +1,3 @@
-Here’s a **clean, professional, and slightly fancy** GitHub `README.md` template for your React booking system project. It highlights your skills, tech stack, and internship experience while keeping it engaging:  
-
----  
-
 # **📅 React Booking System**  
 *A modern, responsive booking platform built with React during our internship*  
 
